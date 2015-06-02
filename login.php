@@ -28,7 +28,6 @@ if (!$result) {
 }
 
 if (mysqli_num_rows($result) > 0) {
-        while ($row)
     session_start();
     $_SESSION["login"] = "1";
 	$_SESSION["username"] = $_POST["username"];
