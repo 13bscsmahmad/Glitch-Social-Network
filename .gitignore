@@ -1,2 +1,3 @@
-# ignore all files in the build/ directory
+# ignore all files in the .idea/ and Photos directory
 .idea/
+Photos/

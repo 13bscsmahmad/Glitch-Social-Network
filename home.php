@@ -71,7 +71,7 @@ if (loggedIn()){
     ?>
 
     <br/>
-	<a href="logout.php">Log Out</a>
+	<h1><a href="logout.php">Log Out</a></h1>
     </body>
     </html>
 

@@ -1,38 +1,96 @@
 <?php include 'filter.php'; ?>
+<?php include 'uploadImage.php'; ?>
 
 <?php
 
+/*
+ *
+ * Need to implement functions for:
+ *      if only status uploaded
+ *      if only image uploaded (includes only image, or both image and status)
+ *
+ * */
+
+
 if (loggedIn()) {
 
-    if(isset($_FILES['fileToUpload']) ) {
+    // if image uploaded
 
-        $index=0;
+    /*if (image_present()){
+        uploadImage();
+    }*/
 
-        $uploads = false;
-        foreach ($_FILES['fileToUpload']['tmp_name'] as $key => $tmp_name) {
+    // if status uploaded
 
-            if (!empty($_FILES['fileToUpload']['tmp_name'][$key])) {
 
-                $filename = $_FILES["fileToUpload"]["name"][$index];
+    // fot status ONLY
 
-                echo "file " . $filename .  " uploaded <br/>";
-                //echo $filename. "<br/>";
-                $index++;
-                $uploads = true;
+    if (text_present() && !image_present()){
 
-            }
+        // get status
+
+        $status = $_POST["statustext"];
+
+        // open connection to database
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "moaaz@dell";
+        $dbname = "project";
+        // Create connection
+
+        $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
+
+        $sql = "SELECT ID FROM user where Username=\"" . $_SESSION["username"] . "\";";
+        $result = mysqli_query($link, $sql);
+
+        if (!$result) {
+            die(mysqli_error($link));
         }
-    } else {
-        echo "no file uploaded";
+
+        $row = $result->fetch_assoc();
+        $ID = $row["ID"];
+
+        $sqlInsert = "INSERT INTO status_upload (UserID, Text) VALUES (\"". $ID . "\",". "\"" . $status . "\");";
+
+        if ($link->query($sqlInsert) === TRUE){
+
+
+            echo "Status uploaded. Refreshing in a moment...";
+            echo "<script>setTimeout(\"location.href = 'home.php';\",1500);</script>";
+
+        } else {
+            echo $link->error;
         }
 
-    if ($uploads == false){
-        echo "no file uploaded";
+        $link->close();
+
     }
+
+
+
+
 
 
 } else {
     header("location:index.html"); //to redirect back to "index.php" after logging out
 }
+
+function text_present(){
+    if ($_POST["statustext"] == ""){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function get_status(){
+    if (text_present()){
+        return $_POST["statustext"];
+    }
+}
+
+
+
 
 ?>
