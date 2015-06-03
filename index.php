@@ -1,10 +1,20 @@
-<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
+
+<?php include 'filter.php';?>
+
+<?php
+
+if (loggedIn()){
+    session_destroy(); //destroy the session
+    //exit();
+}
+?>
+
 
 <form action="login.php" method="post">
 

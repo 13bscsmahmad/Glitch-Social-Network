@@ -36,7 +36,7 @@ if (mysqli_num_rows($result) > 0) {
 	
 	
 } else {
-	header("location:index.html"); //to redirect back to "index.php" after logging out
+	header("location:index.php"); //to redirect back to "index.php" after logging out
     echo "Incorrect username/password.";
 }
 

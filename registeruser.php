@@ -36,7 +36,7 @@ if (mysqli_num_rows($result) > 0) {
 		//header( "refresh:5; url=Location: index.html" );
 		
 		echo "New user created. Refreshing in a moment...";
-		echo "<script>setTimeout(\"location.href = 'index.html';\",3000);</script>";
+		echo "<script>setTimeout(\"location.href = 'index.php';\",3000);</script>";
 		
     } else {
         echo $link->error;
