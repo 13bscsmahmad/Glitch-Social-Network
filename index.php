@@ -10,8 +10,9 @@
 <?php
 
 if (loggedIn()){
-    session_destroy(); //destroy the session
+    //session_destroy(); //destroy the session
     //exit();
+    header("location:home.php");
 }
 ?>
 
