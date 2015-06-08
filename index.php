@@ -32,10 +32,15 @@ if (loggedIn()){
 
 If you're a new user, click <u>here</u>.
 
-<form action="registeruser.php" method="post">
+<form action="registeruser.php" method="post" enctype="multipart/form-data">
 
 <label>Username</label><input type="text" name="newusername"/>
     <label>Password</label><input type="password" name="newpassword">
+    <br>
+
+    <label>Upload profile picture</label>
+    <input type="file" name="profilepic" id="profilepic"/>
+    <br/>
 
     <input type="submit" value="Register">
 

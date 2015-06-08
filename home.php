@@ -44,6 +44,7 @@ if (loggedIn()){
 
     $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID;";
     $result = mysqli_query($link, $sql);
+    //$photos = null;
 
     if (!$result) {
         die(mysqli_error($link));
@@ -53,15 +54,47 @@ if (loggedIn()){
         // output data of each row
         while($row = $result->fetch_assoc()) {
 
-            $display = "Username: " . $row["Username"]. "<br/>" . "Status: " . $row["Text"]. " <br/>";
+            // display profile pic
 
-            if ($row["Photo"] != "null"){
-                $display . $row["Photo"] . "<br/>";
-            }
+            $setSize = "style=\"width:100px;height:100px;\"";
+
+            $profilePictureName = $row["profile_pic"];
+            echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
+            echo "<br\\>";
+            echo "<br\\>";
+            echo "<br\\>";
+            echo "<br\\>";
+            echo "<br\\>";
+
+            // display user status
+
+            $display = "Username: " . $row["Username"]. "<br/>" . "Status: " . $row["Text"]. " <br/>" . $row["Photo"] . "<br/>";
 
             echo $display;
 
+
+
+
+
+            $token = $row["Photo"];
+
+            $token= ltrim ($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
+
+            $token = strtok($token, ",");
+
+            while ($token !== false)
+            {
+                //echo "\"". $token . "\"";
+                echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
+                $token = strtok(",");
+            }
+
+            echo "<hr>";
+
+
         }
+
+
     } else {
         echo "0 results";
     }

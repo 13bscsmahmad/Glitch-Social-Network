@@ -16,9 +16,105 @@ if (loggedIn()) {
 
     // if image uploaded
 
-    /*if (image_present()){
-        uploadImage();
-    }*/
+    $photoNames = array();
+
+    if (image_present()){
+        //uploadImage();
+
+        extract($_POST);
+        $error=array();
+        $extension=array("jpeg","jpg","png","gif");
+        foreach($_FILES["fileToUpload"]["tmp_name"] as $key=>$tmp_name)
+        {
+            $file_name=$_FILES["fileToUpload"]["name"][$key];
+
+            //$photoNames.push($file_name.","); // storing photo name in array
+
+            array_push($photoNames,$file_name);
+
+
+            $file_tmp=$_FILES["fileToUpload"]["tmp_name"][$key];
+            $ext=pathinfo($file_name,PATHINFO_EXTENSION);
+            if(in_array($ext,$extension))
+            {
+                if(!file_exists("Photos/".$file_name))
+                {
+                    move_uploaded_file($file_tmp=$_FILES["fileToUpload"]["tmp_name"][$key],"Photos/" .$file_name);
+                }
+                else
+                {
+                    $filename=basename($file_name,$ext);
+                    $newFileName=$filename.time().".".$ext;
+                    move_uploaded_file($file_tmp=$_FILES["fileToUpload"]["tmp_name"][$key],"Photos/" . $newFileName);
+                }
+            }
+            else
+            {
+                array_push($error,"$file_name, ");
+            }
+        }
+
+
+        // get status
+
+        $status = $_POST["statustext"];
+        if ($status == ""){
+            $status = "Uploaded photos.";
+        }
+
+        // open connection to database
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "moaaz@dell";
+        $dbname = "project";
+        // Create connection
+
+        $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
+
+        $sql = "SELECT ID FROM user where Username=\"" . $_SESSION["username"] . "\";";
+        $result = mysqli_query($link, $sql);
+
+        if (!$result) {
+            die(mysqli_error($link));
+        }
+
+        $row = $result->fetch_assoc();
+        $ID = $row["ID"];
+
+        $photo_names_in_string = null;
+
+        for ($i = 0; $i < count($photoNames); $i++){ // add ',' after all photo names, except the last one.
+
+            if ($i  < count($photoNames) - 1){
+                $photo_names_in_string = $photo_names_in_string . $photoNames[$i] . ",";
+            } else {
+                $photo_names_in_string = $photo_names_in_string . $photoNames[$i];
+            }
+
+        }
+
+
+
+        $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\");";
+        //echo "<script>alert(\"". $sqlInsert . "\");</script>";
+
+        if ($link->query($sqlInsert) === TRUE){
+
+
+            echo "Status uploaded. Refreshing in a moment...";
+            echo "<script>setTimeout(\"location.href = 'home.php';\",1500);</script>";
+
+        } else {
+            echo $link->error;
+        }
+
+        $link->close();
+        return;
+
+
+
+    }
 
     // if status uploaded
 
@@ -64,6 +160,7 @@ if (loggedIn()) {
         }
 
         $link->close();
+        return;
 
     }
 
