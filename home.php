@@ -18,6 +18,8 @@ if (loggedIn()){
 
     Welcome back, <?php echo $_SESSION['username'];?> <br/>
 
+    View your <a href="im_feed.php">IMs</a> <br/>
+
     <div id="statusdiv">
 
         <form action="upload.php" method="post" enctype="multipart/form-data">
