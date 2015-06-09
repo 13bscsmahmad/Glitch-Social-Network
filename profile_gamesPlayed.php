@@ -31,7 +31,7 @@ if (loggedIn()) { ?>
     <div class="main">
         <header class="header">
             <div class="logo"><a href="home.php" title=""><img src="images/logo2.png"
-                                                                     alt="The Video Game Social Network Logo"/></a>
+                                                               alt="The Video Game Social Network Logo"/></a>
             </div>
             <form class="search">
                 <input type="text" placeholder="What are you looking for?"/>
@@ -136,13 +136,14 @@ if (loggedIn()) { ?>
 
                         </div>
                         <div class="single-menu">
-                            <h2><a href="#" title=""><span>Brags</span></a></h2>
+                            <h2><a href="profile_brags.php" title=""><span>Brags</span></a></h2>
                         </div>
                         <div class="single-menu">
                             <h2><a href="#" title=""><span>Screenshots</span></a></h2>
                         </div>
                         <div class="single-menu">
                             <h2><a href="#" title=""><span>Achievements</span></a></h2>
+
                             <h2><a href="#" title=""><span>Gamer Info</span></a></h2>
                         </div>
 
