@@ -233,7 +233,7 @@ if (loggedIn()){
 
                                         $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
 
-                                        $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID;";
+                                        $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID order by Upload_DateTime desc;";
                                         $result = mysqli_query($link, $sql);
                                         //$photos = null;
 
