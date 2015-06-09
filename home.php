@@ -62,7 +62,7 @@ if (loggedIn()){
 
     <div class="main">
         <header class="header">
-            <div class="logo"> <a href="dashboard.html" title=""><img src="images/logo2.png" alt="The Video Game Social Network Logo" /></a> </div>
+            <div class="logo"> <a href="home.php" title=""><img src="images/logo2.png" alt="The Video Game Social Network Logo" /></a> </div>
             <form class="search">
                 <input type="text" placeholder="What are you looking for?"  />
                 <button type="button"><i class="fa fa-search"></i></button>
@@ -143,7 +143,10 @@ if (loggedIn()){
                 <div class="menu-sec">
                     <div id="menu-toogle" class="menus">
                         <div class="single-menu">
-                            <h2><a href="#" title=""><span>Dunno what to put lol</span></a></h2>
+                            <h2><a href="home.php" title=""><span>News Feed</span></a></h2>
+                        </div>
+                        <div class="single-menu">
+                            <h2><a href="profile_gamesPlayed.php" title=""><span>Gamer Profile</span></a></h2>
                         </div>
                         <div class="single-menu">
                             <h2><a href="#" title=""><span>Will do this stuff later</span></a></h2>
