@@ -374,7 +374,7 @@ if (loggedIn()){
 
                                         ?>
 
-                                       
+
                                         <li>
                                             <div class="timeline">
                                                 <div class="user-timeline"><span><img src="user/profilePhoto/1.png"

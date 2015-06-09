@@ -7,7 +7,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hamza Masud - Profile | Glitch</title>
+        <title> Brag Profile | Glitch</title>
 
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900' rel='stylesheet'
               type='text/css'/>
@@ -108,7 +108,7 @@
                     <ul>
                         <li><a href="#" title=""><i class="fa fa-edit"></i> New post</a></li>
                         <li><a href="#" title=""><i class="fa fa-wrench"></i> Settings</a></li>
-                        <li><a href="profile.html" title=""><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="userprofile.php" title=""><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="logout.php" title=""><i class="fa fa-info"></i> Log Out</a></li>
                     </ul>
                 </div>
