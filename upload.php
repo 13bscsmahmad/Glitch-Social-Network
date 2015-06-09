@@ -96,8 +96,32 @@ if (loggedIn()) {
 
 
 
-        $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\");";
-        //echo "<script>alert(\"". $sqlInsert . "\");</script>";
+        $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\");"; // base query
+
+        $bN = null;
+        $pN = null;
+
+        if(isset($_POST["bragName"])){
+
+            $bN = $_POST["bragName"];
+            $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo, Brag) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\",\"" . $bN . "\");";
+
+        }
+
+        if(isset($_POST["playName"])){
+
+            $pN = $_POST["playName"];
+            $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\",\"" . $pN . "\");";
+
+        }
+
+        if (isset($_POST["playName"]) && isset($_POST["bragName"])){
+
+            $bN = $_POST["bragName"];
+            $pN = $_POST["playName"];
+            $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo, Brag, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\",\"" . $bN . "\",\"" . $pN. "\");";
+        }
+
 
         if ($link->query($sqlInsert) === TRUE){
 
@@ -125,7 +149,15 @@ if (loggedIn()) {
 
         // get status
 
+        $bN = null;
+        $pN = null;
+
         $status = $_POST["statustext"];
+
+
+
+
+
 
         // open connection to database
 
@@ -147,7 +179,30 @@ if (loggedIn()) {
         $row = $result->fetch_assoc();
         $ID = $row["ID"];
 
-        $sqlInsert = "INSERT INTO status_upload (UserID, Text) VALUES (\"". $ID . "\",". "\"" . $status . "\");";
+        $sqlInsert = "INSERT INTO status_upload (UserID, Text) VALUES (\"". $ID . "\",". "\"" . $status . "\");"; // base query
+
+        if(isset($_POST["bragName"])){
+
+            $bN = $_POST["bragName"];
+            $sqlInsert = "INSERT INTO status_upload (UserID, Text, Brag) VALUES (\"". $ID . "\",". "\"" . $status . "\",\"" . $bN ."\");";
+
+        }
+
+        if(isset($_POST["playName"])){
+
+            $pN = $_POST["playName"];
+            $sqlInsert = "INSERT INTO status_upload (UserID, Text, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\"" . $pN ."\");";
+
+        }
+
+        if (isset($_POST["playName"]) && isset($_POST["bragName"])){
+
+            $bN = $_POST["bragName"];
+            $pN = $_POST["playName"];
+            $sqlInsert = "INSERT INTO status_upload (UserID, Text, Brag, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\"" . $bN ."\",\"" . $pN . "\");";
+        }
+
+
 
         if ($link->query($sqlInsert) === TRUE){
 

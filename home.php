@@ -41,6 +41,21 @@ if (loggedIn()){
             }
         </style>
 
+        <script>
+            //Bragging
+            $(document).ready(function() {
+                $("#addBragBtn").click(function(){
+                    $("#additional").html("<input name=\"bragName\" type=\"text\" style=\"width:100%; border:none; border-top:1px dashed #999999;\" placeholder=\"What game are you bragging about?\" />");
+                });
+
+//Playing
+                $("#addPlayingBtn").click(function(){
+                    $("#additional").html("<input name=\"playName\" type=\"text\" style=\"width:100%; border:none; border-top:1px dashed #999999;\" placeholder=\"What are you playing?\" />");
+                });
+            });
+
+        </script>
+
     </head>
 
     <body>
@@ -162,8 +177,11 @@ if (loggedIn()){
                                 <div class="status-upload" style="margin-top:15px;">
                                     <form action="upload.php" method="post" enctype="multipart/form-data">
                                         <textarea name ="statustext" placeholder="What are you doing right now?"></textarea>
+                                        <div id="additional"></div>
                                         <ul>
                                             <li><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i class="fa fa-picture-o"></i></a></li>
+                                            <li id="addBragBtn"><a data-placement="bottom" data-toggle="tooltip" title="Brag"><i class="fa fa-child"></i></a></li>
+                                            <li id="addPlayingBtn"><a data-placement="bottom" data-toggle="tooltip" title="Playing"><i class="fa fa-gamepad"></i></a></li>
                                         </ul>
                                         <button class="green" type="submit">Post</button>
                                     </form>
