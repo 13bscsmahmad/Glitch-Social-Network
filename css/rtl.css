@@ -1,0 +1,157 @@
+body {
+    direction: rtl;
+}
+.drop-list > ul > li > a > i {
+    margin-top: 10px;
+}
+.dropdown.profile > a i {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.file-transfer-widget .toggle > ul > li > i {
+    margin: 6px 0 12px 10px;
+}
+.file-transfer-widget .toggle > ul > li > .progress {
+    margin-top: 16px;
+}
+.file-action-btn {
+    margin-top: 10px;
+}
+.file-transfer-widget > h3 > i {
+    margin-left: 18px;
+}
+.toggle-switch *:checked + span {
+    left: -50%;
+}
+.main-title > h5 {
+    float: right;
+    margin: 0;
+}
+.main-title > span {
+    float: right;
+}
+.main-title > span > i {
+    margin: 0 20px 0 10px;
+}
+.ribbon-design {
+    left: 33px;
+}
+.panel-function {
+    left: 0;
+    right: auto;
+}
+.logout {
+    left: 60px;
+    margin-top: -25px;
+    right: auto;
+    width: 27px;
+}
+.graph-container, .graph-container div, .graph-container a, .graph-container span {
+    direction: ltr;
+ }
+ .owl-carousel .owl-item {
+    float: right !important;
+}
+.work-progress-table > .panel-heading .btn-group {
+    float: left;
+}
+#live-chat h4:before {
+    margin: 0 8px 0 20px;
+}
+.social-btns {
+    margin-top: 11px;
+}
+.full-report > ul li i {
+    margin-left: 10px;
+}
+.earning-graph > span {
+    left: 25px;
+    right: auto;
+}
+.dounut-chart #svg text {
+    direction: ltr;
+}
+.inbox-msg > span {
+    float: right;
+    margin-left: 10px;
+    margin-right: 0;
+}
+.mail-menu > ul > li > a > span {
+    float: right;
+    margin-left: 10px;
+    margin-right: 0;
+}
+.mail-labels > ul > li > a > i {
+    margin-left: 20px;
+    margin-right: 0;
+}
+.birthday > h3 > span {
+    float: left;
+}
+.profile-name .social-btns > li {
+    float: right;
+}
+.profile-name .social-btns > li:first-child {
+    margin-left: 5px;
+}
+.radio label, .checkbox label {
+    padding-left: 0;
+    padding-right: 20px;
+}
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+    right: 0;
+}
+.service-icon {
+    left: 0;
+    right: auto;
+ }
+ .tdl-holder li span {
+    margin-left: 0;
+    margin-right: 40px;
+}
+.tdl-holder label a {
+    float: left;
+}
+
+
+
+
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 980px) {
+.slide-menu .logout {
+    display: table;
+    float: none;
+    left: 0;
+    margin: 0 auto;
+    position: relative;
+    top: 0;
+}	
+}
+@media (max-width: 767px) {
+
+.slide-menu .logout {
+    display: table;
+    float: none;
+    left: 0;
+    margin: 0 auto;
+    position: relative;
+    top: 0;
+}
+
+}
+@media (max-width: 480px)  {
+
+.slide-menu .logout {
+    display: table;
+    float: none;
+    left: 0;
+    margin: 0 auto;
+    position: relative;
+    top: 0;
+}
+
+}
