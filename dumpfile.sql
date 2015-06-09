@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2015 at 12:28 AM
+-- Generation Time: Jun 09, 2015 at 04:47 PM
 -- Server version: 5.6.23-log
 -- PHP Version: 5.5.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `im` (
   `Photo` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -47,9 +47,10 @@ CREATE TABLE IF NOT EXISTS `status_upload` (
   `UserID` int(10) unsigned NOT NULL,
   `Text` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Photo` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Brag` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Upload_DateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 --
 -- Table structure for table `user`
@@ -63,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Username` (`Username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
