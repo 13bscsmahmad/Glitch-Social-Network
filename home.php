@@ -108,7 +108,7 @@ if (loggedIn()){
                     <ul>
                         <li><a href="#" title=""><i class="fa fa-edit"></i> New post</a></li>
                         <li><a href="#" title=""><i class="fa fa-wrench"></i> Settings</a></li>
-                        <li><a href="profile.html" title=""><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="userprofile.php" title=""><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="logout.php" title=""><i class="fa fa-info"></i> Log Out</a></li>
                     </ul>
                 </div>

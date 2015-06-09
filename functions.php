@@ -37,5 +37,11 @@ function getUserProfilePic($user){
 
 }
 
+function logout(){
+    if (loggedIn()){
+
+    }
+}
+
 
 ?>
