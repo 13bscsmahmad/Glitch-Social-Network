@@ -34,6 +34,13 @@ if (loggedIn()){
         <script type="text/javascript" src="js/enscroll.js"></script>
         <script type="text/javascript" src="js/grid-filter.js"></script>
         <script type="text/javascript" src="js/html5lightbox.js"></script>
+
+        <style type="text/css">
+            input[type="file"] {
+                display: none;
+            }
+        </style>
+
     </head>
 
     <body>
@@ -153,8 +160,8 @@ if (loggedIn()){
                         <div class="masonary-grids">
                             <div class="col-md-12">
                                 <div class="status-upload" style="margin-top:15px;">
-                                    <form>
-                                        <textarea placeholder="What are you doing right now?"></textarea>
+                                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                                        <textarea name ="statustext" placeholder="What are you doing right now?"></textarea>
                                         <ul>
                                             <li><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i class="fa fa-picture-o"></i></a></li>
                                         </ul>
@@ -170,63 +177,223 @@ if (loggedIn()){
                                             <ul>
                                                 <!--- @Moaaz: each li one status. Use it to dynamically generate more statuses. Putting this here for clarity-->
 
-                                                <li>
-                                                    <div class="timeline">
-                                                        <div class="user-timeline"> <span><img src="user/profilePhoto/3.png" alt="" /></span> </div>
-                                                        <div class="timeline-detail">
-                                                            <div class="timeline-head">
-                                                                <h3>Moaaz Ahmed<span>2 min ago</span></h3>
-                                                            </div>
-                                                            <div class="timeline-content">
-                                                                <p>Google stuff</p>
-                                                                <div data-toggle="buttons" class="btn-group btn-group-sm">
-                                                                    <label class="btn btn-default">
-                                                                        <input type="radio"  name="options" />
-                                                                        <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>
-                                                                </div>
-                                                                <form class="post-reply">
-                                                                    <textarea placeholder="Write your comment"></textarea>
+                                                <?php
 
-                                                                    <center><a href="#" title="" class="c-btn mini blue" style="margin:0 auto;"><i class="fa fa-comments-o"></i> Post Comment</a></center>
-                                                                </form>
+                                                $servername = "localhost";
+                                                $username = "root";
+                                                $password = "moaaz@dell";
+                                                $dbname = "project";
+                                                // Create connection
+
+                                                $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
+
+                                                $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID;";
+                                                $result = mysqli_query($link, $sql);
+                                                //$photos = null;
+
+                                                if (!$result) {
+                                                    die(mysqli_error($link));
+                                                }
+
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    // output data of each row
+                                                    while($row = $result->fetch_assoc()) {
+
+                                                        // display profile pic
+
+                                                        $setSize = "style=\"width:100px;height:100px;\"";
+
+                                                        $profilePictureName = $row["profile_pic"];
+
+                                                        if($row["Photo"] === null) {
+
+                                                            echo "<li>
+                                                    <div class=\"timeline\">
+                                                        <div class=\"user-timeline\"> <span><img src=\"ProfilePics/" . $profilePictureName . "\" alt=\"\" /></span> </div>
+                                                        <div class=\"timeline-detail\">
+                                                            <div class=\"timeline-head\">
+                                                                <h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>
+                                                            </div>
+                                                            <div class=\"timeline-content\">
+                                                                <p>" . $row["Text"] . "</p>
+                                                                <div data-toggle=\"buttons\" class=\"btn-group btn-group-sm\">
+                                                                    <label class=\"btn btn-default\">
+                                                                        <input type=\"radio\"  name=\"options\" />
+                                                                        <i class=\"fa fa-thumbs-o-up\"></i> Thumbs Up! </label>
+                                                                </div>
+                                                                <form class=\"post-reply\">
+                                                                    <textarea placeholder=\"Write your comment\"></textarea>
+
+                                                                    <center><a href=\"#\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
+                                                        </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li>
-                                                <!-- @Moaaz: Copy till here -->
+                                                </li>";
+                                                        }
 
 
-                                                <li>
-                                                    <div class="timeline">
-                                                        <div class="user-timeline"> <span><img src="user/profilePhoto/2.png" alt="" /></span> </div>
-                                                        <div class="timeline-detail">
-                                                            <div class="timeline-head">
-                                                                <h3>Sohaib Ahmad<span>2 hours ago</span></h3>
+
+
+
+                                                        /*echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
+                                                        echo "<br\\>";
+                                                        echo "<br\\>";
+                                                        echo "<br\\>";
+                                                        echo "<br\\>";
+                                                        echo "<br\\>";
+
+                                                        // display user status
+
+                                                        $display = "Username: " . $row["Username"]. "<br/>" . "Status: " . $row["Text"]. " <br/>" . $row["Photo"] . "<br/>";
+
+                                                        echo $display;
+
+
+
+
+
+                                                        $token = $row["Photo"];
+
+                                                        $token= ltrim ($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
+
+                                                        $token = strtok($token, ",");
+
+                                                        while ($token !== false)
+                                                        {
+                                                            //echo "\"". $token . "\"";
+                                                            echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
+                                                            $token = strtok(",");
+                                                        }
+
+                                                        echo "<hr>";*/
+
+                                                        else {
+
+                                                            echo " <li>
+                                                    <div class=\"timeline\">
+                                                        <div class=\"user-timeline\"> <span><img src=\"ProfilePics/" . $profilePictureName . "\" alt=\"\" /></span> </div>
+                                                        <div class=\"timeline-detail\">
+                                                            <div class=\"timeline-head\">
+                                                                <h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] ."</span></h3>
                                                             </div>
-                                                            <div class="timeline-content">
-                                                                <p>Playing DOTA as always, lol.</p>
-                                                                <div class="timeline-gallery">
-                                                                    <ul>
-                                                                        <li><a class="html5lightbox" href="posts/screenshots/1.jpg"><i class="fa fa-arrows-alt"></i><img src="posts/screenshots/1.jpg" width="70px" height="70px" style="width:auto;" alt="" /></a></li>
-                                                                        <li><a class="html5lightbox" href="images/resource/view.gif"><i class="fa fa-arrows-alt"></i><img src="images/resource/gallery2.jpg" alt="" /></a></li>
-                                                                        <li><a class="html5lightbox" href="images/resource/view.gif"><i class="fa fa-arrows-alt"></i><img src="images/resource/gallery3.jpg" alt="" /></a></li>
-                                                                        <li><a class="html5lightbox" href="images/resource/view.gif"><i class="fa fa-arrows-alt"></i><img src="images/resource/gallery4.jpg" alt="" /></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div data-toggle="buttons" class="btn-group btn-group-sm">
-                                                                    <label class="btn btn-default">
-                                                                        <input type="radio"  name="options" />
-                                                                        <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>
-                                                                </div>
-                                                                <form class="post-reply">
-                                                                    <textarea placeholder="Write your comment"></textarea>
+                                                            <div class=\"timeline-content\">
+                                                                <p>". $row["Text"] ."</p>
+                                                                <div class=\"timeline-gallery\">
+                                                                    <ul>";
+                                                            // echo photos.
 
-                                                                    <center><a href="#" title="" class="c-btn mini blue" style="margin:0 auto;"><i class="fa fa-comments-o"></i> Post Comment</a></center>
-                                                                </form>
+                                                            $token = $row["Photo"];
+
+                                                            $token= ltrim ($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
+
+                                                            $token = strtok($token, ",");
+
+                                                            while ($token !== false)
+                                                            {
+                                                                //echo "\"". $token . "\"";
+                                                                //echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
+
+
+                                                                echo "<li><a class=\"html5lightbox\" href=\"Photos/" . $token . "\"><i class=\"fa fa-arrows-alt\"></i><img src=\"Photos/" . $token ."\" width=\"70px\" height=\"70px\" style=\"width:auto;\" alt=\"\" /></a></li>";
+                                                                $token = strtok(",");
+                                                            }
+
+
+//                                                                        <li><a class=\"html5lightbox\" href=\"posts/screenshots/1.jpg\"><i class=\"fa fa-arrows-alt\"></i><img src=\"posts/screenshots/1.jpg\" width=\"70px\" height=\"70px\" style=\"width:auto;\" alt=\"\" /></a></li>
+//                                                                        <li><a class=\"html5lightbox\" href=\"images/resource/view.gif\"><i class=\"fa fa-arrows-alt\"></i><img src=\"images/resource/gallery2.jpg\" alt=\"\" /></a></li>
+//                                                                        <li><a class=\"html5lightbox\" href=\"images/resource/view.gif\"><i class=\"fa fa-arrows-alt\"></i><img src=\"images/resource/gallery3.jpg\" alt=\"\" /></a></li>
+//                                                                        <li><a class=\"html5lightbox\" href=\"images/resource/view.gif\"><i class=\"fa fa-arrows-alt\"></i><img src=\"images/resource/gallery4.jpg\" alt=\"\" /></a></li>
+                                                                    echo "</ul>
+                                                                </div>
+                                                                <div data-toggle=\"buttons\" class=\"btn-group btn-group-sm\">
+                                                                    <label class=\"btn btn-default\">
+                                                                        <input type=\"radio\"  name=\"options\" />
+                                                                        <i class=\"fa fa-thumbs-o-up\"></i> Thumbs Up! </label>
+                                                                </div>
+                                                                <form class=\"post-reply\">
+                                                                    <textarea placeholder=\"Write your comment\"></textarea>
+
+                                                                    <center><a href=\"#\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
+                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li>
+                                                </li>";
+
+                                                        }
+
+
+                                                    }
+
+
+                                                } else {
+                                                    echo "0 results";
+                                                }
+
+                                                $link->close();
+
+                                                ?>
+
+                                                <!-- ----------------------------------------------------------------------------------------------------------->
+
+<!--                                                <li>-->
+<!--                                                    <div class="timeline">-->
+<!--                                                        <div class="user-timeline"> <span><img src="user/profilePhoto/3.png" alt="" /></span> </div>-->
+<!--                                                        <div class="timeline-detail">-->
+<!--                                                            <div class="timeline-head">-->
+<!--                                                                <h3>Moaaz Ahmed<span>2 min ago</span></h3>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="timeline-content">-->
+<!--                                                                <p>Google stuff</p>-->
+<!--                                                                <div data-toggle="buttons" class="btn-group btn-group-sm">-->
+<!--                                                                    <label class="btn btn-default">-->
+<!--                                                                        <input type="radio"  name="options" />-->
+<!--                                                                        <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
+<!--                                                                </div>-->
+<!--                                                                <form class="post-reply">-->
+<!--                                                                    <textarea placeholder="Write your comment"></textarea>-->
+<!---->
+<!--                                                                    <center><a href="#" title="" class="c-btn mini blue" style="margin:0 auto;"><i class="fa fa-comments-o"></i> Post Comment</a></center>-->
+<!--                                                                </form>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                                <!-- @Moaaz: Copy till here -->-->
+<!---->
+<!---->
+<!--                                                <li>-->
+<!--                                                    <div class="timeline">-->
+<!--                                                        <div class="user-timeline"> <span><img src="user/profilePhoto/2.png" alt="" /></span> </div>-->
+<!--                                                        <div class="timeline-detail">-->
+<!--                                                            <div class="timeline-head">-->
+<!--                                                                <h3>Sohaib Ahmad<span>2 hours ago</span></h3>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="timeline-content">-->
+<!--                                                                <p>Playing DOTA as always, lol.</p>-->
+<!--                                                                <div class="timeline-gallery">-->
+<!--                                                                    <ul>-->
+<!--                                                                        <li><a class="html5lightbox" href="posts/screenshots/1.jpg"><i class="fa fa-arrows-alt"></i><img src="posts/screenshots/1.jpg" width="70px" height="70px" style="width:auto;" alt="" /></a></li>-->
+<!--                                                                        <li><a class="html5lightbox" href="images/resource/view.gif"><i class="fa fa-arrows-alt"></i><img src="images/resource/gallery2.jpg" alt="" /></a></li>-->
+<!--                                                                        <li><a class="html5lightbox" href="images/resource/view.gif"><i class="fa fa-arrows-alt"></i><img src="images/resource/gallery3.jpg" alt="" /></a></li>-->
+<!--                                                                        <li><a class="html5lightbox" href="images/resource/view.gif"><i class="fa fa-arrows-alt"></i><img src="images/resource/gallery4.jpg" alt="" /></a></li>-->
+<!--                                                                    </ul>-->
+<!--                                                                </div>-->
+<!--                                                                <div data-toggle="buttons" class="btn-group btn-group-sm">-->
+<!--                                                                    <label class="btn btn-default">-->
+<!--                                                                        <input type="radio"  name="options" />-->
+<!--                                                                        <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
+<!--                                                                </div>-->
+<!--                                                                <form class="post-reply">-->
+<!--                                                                    <textarea placeholder="Write your comment"></textarea>-->
+<!---->
+<!--                                                                    <center><a href="#" title="" class="c-btn mini blue" style="margin:0 auto;"><i class="fa fa-comments-o"></i> Post Comment</a></center>-->
+<!--                                                                </form>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
                                                 <li>
                                                     <div class="timeline">
                                                         <div class="user-timeline"> <span><img src="user/profilePhoto/1.png" alt="" /></span> </div>
@@ -297,104 +464,107 @@ if (loggedIn()){
 
     <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <h1>HOME</h1>
+<!--    <h1>HOME</h1>-->
+<!---->
+<!--    Welcome back, --><?php //echo $_SESSION['username'];?><!-- <br/>-->
+<!---->
+<!--    View your <a href="im_feed.php">IMs</a> <br/>-->
+<!---->
+<!--    <div id="statusdiv">-->
+<!---->
+<!--        <form action="upload.php" method="post" enctype="multipart/form-data">-->
+<!--            <label>Status</label>-->
+<!--            <textarea name="statustext" autofocus="autofocus" rows="5" cols="25" placeholder="What do you want to brag about?"></textarea>-->
+<!--            <br/>-->
+<!--            <label>Upload photo</label>-->
+<!--            <input type="file" name="fileToUpload[]" id="fileToUpload" multiple="multiple"/>-->
+<!--            <br/>-->
+<!--            <input type="submit" value="Post!">-->
+<!--        </form>-->
+<!---->
+<!--    </div>-->
+<!---->
+<!--    --><?php
+//
+//    $servername = "localhost";
+//    $username = "root";
+//    $password = "moaaz@dell";
+//    $dbname = "project";
+//    // Create connection
+//
+//    $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
+//
+//    $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID;";
+//    $result = mysqli_query($link, $sql);
+//    //$photos = null;
+//
+//    if (!$result) {
+//        die(mysqli_error($link));
+//    }
+//
+//    if (mysqli_num_rows($result) > 0) {
+//        // output data of each row
+//        while($row = $result->fetch_assoc()) {
+//
+//            // display profile pic
+//
+//            $setSize = "style=\"width:100px;height:100px;\"";
+//
+//            $profilePictureName = $row["profile_pic"];
+//            echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
+//            echo "<br\\>";
+//            echo "<br\\>";
+//            echo "<br\\>";
+//            echo "<br\\>";
+//            echo "<br\\>";
+//
+//            // display user status
+//
+//            $display = "Username: " . $row["Username"]. "<br/>" . "Status: " . $row["Text"]. " <br/>" . $row["Photo"] . "<br/>";
+//
+//            echo $display;
+//
+//
+//
+//
+//
+//            $token = $row["Photo"];
+//
+//            $token= ltrim ($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
+//
+//            $token = strtok($token, ",");
+//
+//            while ($token !== false)
+//            {
+//                //echo "\"". $token . "\"";
+//                echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
+//                $token = strtok(",");
+//            }
+//
+//            echo "<hr>";
+//
+//
+//        }
+//
+//
+//    } else {
+//        echo "0 results";
+//    }
+//
+//    $link->close();
+//
+//    ?>
+<!---->
+<!--    <br/>-->
+<!--	<h1><a href="logout.php">Log Out</a></h1>-->
+<!---->
+<!--    <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->-->
+<!---->
+<!--    </body>-->
+<!--    </html>-->
 
-    Welcome back, <?php echo $_SESSION['username'];?> <br/>
-
-    View your <a href="im_feed.php">IMs</a> <br/>
-
-    <div id="statusdiv">
-
-        <form action="upload.php" method="post" enctype="multipart/form-data">
-            <label>Status</label>
-            <textarea name="statustext" autofocus="autofocus" rows="5" cols="25" placeholder="What do you want to brag about?"></textarea>
-            <br/>
-            <label>Upload photo</label>
-            <input type="file" name="fileToUpload[]" id="fileToUpload" multiple="multiple"/>
-            <br/>
-            <input type="submit" value="Post!">
-        </form>
-
-    </div>
-
-    <?php
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "moaaz@dell";
-    $dbname = "project";
-    // Create connection
-
-    $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
-
-    $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID;";
-    $result = mysqli_query($link, $sql);
-    //$photos = null;
-
-    if (!$result) {
-        die(mysqli_error($link));
-    }
-
-    if (mysqli_num_rows($result) > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-
-            // display profile pic
-
-            $setSize = "style=\"width:100px;height:100px;\"";
-
-            $profilePictureName = $row["profile_pic"];
-            echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
-            echo "<br\\>";
-            echo "<br\\>";
-            echo "<br\\>";
-            echo "<br\\>";
-            echo "<br\\>";
-
-            // display user status
-
-            $display = "Username: " . $row["Username"]. "<br/>" . "Status: " . $row["Text"]. " <br/>" . $row["Photo"] . "<br/>";
-
-            echo $display;
-
-
-
-
-
-            $token = $row["Photo"];
-
-            $token= ltrim ($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
-
-            $token = strtok($token, ",");
-
-            while ($token !== false)
-            {
-                //echo "\"". $token . "\"";
-                echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
-                $token = strtok(",");
-            }
-
-            echo "<hr>";
-
-
-        }
-
-
-    } else {
-        echo "0 results";
-    }
-
-    $link->close();
-
-    ?>
-
-    <br/>
-	<h1><a href="logout.php">Log Out</a></h1>
-
-    <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+<?php } else { header("location:index.html"); } ?>
 
     </body>
     </html>
-
-<?php } else { header("location:index.html"); } ?>
 
