@@ -375,69 +375,69 @@ if (loggedIn()){
                                         ?>
 
 
-                                        <li>
-                                            <div class="timeline">
-                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"
-                                                                                      alt=""/></span></div>
-                                                <div class="timeline-detail">
-                                                    <div class="timeline-head">
-                                                        <h3><strong>Hamza Masud</strong> bragged about DOTA<span>4 min ago</span>
-                                                        </h3>
-                                                    </div>
-                                                    <div class="timeline-content">
-                                                        <p>scored 20 kills in DOTA!</p>
-
-                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">
-                                                            <label class="btn btn-default">
-                                                                <input type="radio" name="options"/>
-                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>
-                                                        </div>
-                                                        <form class="post-reply">
-                                                            <textarea placeholder="Write your comment"></textarea>
-
-                                                            <center><a href="#" title="" class="c-btn mini blue"
-                                                                       style="margin:0 auto;"><i
-                                                                        class="fa fa-comments-o"></i> Post Comment</a>
-                                                            </center>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="timeline">
-                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"
-                                                                                      alt=""/></span></div>
-                                                <div class="timeline-detail">
-                                                    <div class="timeline-head">
-                                                        <h3><strong>Hamza Masud</strong> unlocked an achievement in
-                                                            <strong>Batman Arkham Asylum</strong><span>4 min ago</span>
-                                                        </h3>
-                                                    </div>
-                                                    <div class="timeline-content">
-                                                        <p>
-                                                            <img
-                                                                src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/35140/4d059fa60652ec59e4d82793a50a146142d86350.jpg"/>
-                                                            <strong>Perfect Knight</strong></p>
-
-                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">
-                                                            <label class="btn btn-default">
-                                                                <input type="radio" name="options"/>
-                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>
-                                                        </div>
-                                                        <form class="post-reply">
-                                                            <textarea placeholder="Write your comment"></textarea>
-
-                                                            <center><a href="#" title="" class="c-btn mini blue"
-                                                                       style="margin:0 auto;"><i
-                                                                        class="fa fa-comments-o"></i> Post Comment</a>
-                                                            </center>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+<!--                                        <li>-->
+<!--                                            <div class="timeline">-->
+<!--                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"-->
+<!--                                                                                      alt=""/></span></div>-->
+<!--                                                <div class="timeline-detail">-->
+<!--                                                    <div class="timeline-head">-->
+<!--                                                        <h3><strong>Hamza Masud</strong> bragged about DOTA<span>4 min ago</span>-->
+<!--                                                        </h3>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="timeline-content">-->
+<!--                                                        <p>scored 20 kills in DOTA!</p>-->
+<!---->
+<!--                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">-->
+<!--                                                            <label class="btn btn-default">-->
+<!--                                                                <input type="radio" name="options"/>-->
+<!--                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
+<!--                                                        </div>-->
+<!--                                                        <form class="post-reply">-->
+<!--                                                            <textarea placeholder="Write your comment"></textarea>-->
+<!---->
+<!--                                                            <center><a href="#" title="" class="c-btn mini blue"-->
+<!--                                                                       style="margin:0 auto;"><i-->
+<!--                                                                        class="fa fa-comments-o"></i> Post Comment</a>-->
+<!--                                                            </center>-->
+<!--                                                        </form>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!---->
+<!--                                        <li>-->
+<!--                                            <div class="timeline">-->
+<!--                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"-->
+<!--                                                                                      alt=""/></span></div>-->
+<!--                                                <div class="timeline-detail">-->
+<!--                                                    <div class="timeline-head">-->
+<!--                                                        <h3><strong>Hamza Masud</strong> unlocked an achievement in-->
+<!--                                                            <strong>Batman Arkham Asylum</strong><span>4 min ago</span>-->
+<!--                                                        </h3>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="timeline-content">-->
+<!--                                                        <p>-->
+<!--                                                            <img-->
+<!--                                                                src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/35140/4d059fa60652ec59e4d82793a50a146142d86350.jpg"/>-->
+<!--                                                            <strong>Perfect Knight</strong></p>-->
+<!---->
+<!--                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">-->
+<!--                                                            <label class="btn btn-default">-->
+<!--                                                                <input type="radio" name="options"/>-->
+<!--                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
+<!--                                                        </div>-->
+<!--                                                        <form class="post-reply">-->
+<!--                                                            <textarea placeholder="Write your comment"></textarea>-->
+<!---->
+<!--                                                            <center><a href="#" title="" class="c-btn mini blue"-->
+<!--                                                                       style="margin:0 auto;"><i-->
+<!--                                                                        class="fa fa-comments-o"></i> Post Comment</a>-->
+<!--                                                            </center>-->
+<!--                                                        </form>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
 
 
                                     </ul>
