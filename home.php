@@ -38,9 +38,14 @@ if (loggedIn()){
     <script type="text/javascript" src="js/html5lightbox.js"></script>
 
     <style type="text/css">
-        input[type="file"] {
-            display: none;
-        }
+        /*input[type="file"] {*/
+            /*display: none;*/
+
+        /*}*/
+
+        span#statusIDspan{
+             visibility: hidden;
+         }
     </style>
 
     <script>
@@ -243,7 +248,7 @@ if (loggedIn()){
 
                                         $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
 
-                                        $sql = "SELECT * FROM status_upload join user on status_upload.userID = user.ID order by Upload_DateTime desc;";
+                                        $sql = "SELECT Username, profile_pic, status_upload.ID as s_ID, Text, Photo, Brag, NowPlaying, Upload_DateTime FROM status_upload join user on status_upload.userID = user.ID order by Upload_DateTime desc;";
                                         $result = mysqli_query($link, $sql);
                                         //$photos = null;
 
@@ -277,8 +282,9 @@ if (loggedIn()){
                                                                         <input type=\"radio\"  name=\"options\" />
                                                                         <i class=\"fa fa-thumbs-o-up\"></i> Thumbs Up! </label>
                                                                 </div>
-                                                                <form class=\"post-reply\">
-                                                                    <textarea placeholder=\"Write your comment\"></textarea>
+                                                                <form class=\"post-reply\" action=\"uploadComment.php\" method=\"post\">
+                                                                    <textarea name=\"comment\" placeholder=\"Write your comment\"></textarea>
+                                                                    <span id=\"statusIDspan\" name=\"statusid\">". $row["s_ID"] ."</span>
 
                                                                     <center><a href=\"#\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
                                                         </form>
