@@ -210,6 +210,7 @@ if (loggedIn()){
                                 <textarea name="statustext" placeholder="What are you doing right now?"></textarea>
 
                                 <div id="additional"></div>
+
                                 <ul>
                                     <li id="addPhotosBtn"><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i
                                                 class="fa fa-picture-o"></i></a></li>
@@ -219,7 +220,7 @@ if (loggedIn()){
                                                               title="Playing"><i class="fa fa-gamepad"></i></a></li>
                                 </ul>
                                 <button class="green" type="submit">Post</button>
-                                
+
                             </form>
                         </div>
                         <!-- Status Upload  -->

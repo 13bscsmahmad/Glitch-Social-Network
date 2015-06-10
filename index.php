@@ -238,7 +238,7 @@ if (loggedIn()){
                                     </div>
                                 </div>
                             </form>
-                            <form id="register-form" action="registeruser.php" method="post" role="form" style="display: none;">
+                            <form id="register-form" action="registeruser.php" method="post" role="form" style="display: none;" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <input type="text" name="newusername" id="newusername" tabindex="1" class="form-control" placeholder="Username" value="">
                                 </div>
