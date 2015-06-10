@@ -45,6 +45,11 @@ if (loggedIn()){
     <script>
         //Bragging
         $(document).ready(function () {
+
+            $("#addPhotoBtn").click(function () {
+                $("#additional").html("<input type=\"file\" name=\"fileToUpload[]\" id=\"fileToUpload\" multiple=\"multiple\"/>");
+            });
+
             $("#addBragBtn").click(function () {
                 $("#additional").html("<input name=\"bragName\" type=\"text\" style=\"width:100%; border:none; border-top:1px dashed #999999;\" placeholder=\"What game are you bragging about?\" />");
             });
@@ -203,7 +208,7 @@ if (loggedIn()){
 
                                 <div id="additional"></div>
                                 <ul>
-                                    <li><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i
+                                    <li id="addPhotoBtn"><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i
                                                 class="fa fa-picture-o"></i></a></li>
                                     <li id="addBragBtn"><a data-placement="bottom" data-toggle="tooltip" title="Brag"><i
                                                 class="fa fa-child"></i></a></li>
