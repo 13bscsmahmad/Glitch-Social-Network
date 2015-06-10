@@ -6,6 +6,7 @@
 if (loggedIn()){
 ?>
 
+<!doctype html>
 <html>
 
 <head>
@@ -46,7 +47,7 @@ if (loggedIn()){
         //Bragging
         $(document).ready(function () {
 
-            $("#addPhotoBtn").click(function () {
+            $("#addPhotosBtn").click(function () {
                 $("#additional").html("<input type=\"file\" name=\"fileToUpload[]\" id=\"fileToUpload\" multiple=\"multiple\"/>");
             });
 
@@ -58,6 +59,8 @@ if (loggedIn()){
             $("#addPlayingBtn").click(function () {
                 $("#additional").html("<input name=\"playName\" type=\"text\" style=\"width:100%; border:none; border-top:1px dashed #999999;\" placeholder=\"What are you playing?\" />");
             });
+
+
         });
 
     </script>
@@ -201,14 +204,14 @@ if (loggedIn()){
             <!-- title Date Range -->
             <div class="row">
                 <div class="masonary-grids">
-                    <div class="col-md-12">
+                    <div id="refreshed-feed" class="col-md-12">
                         <div class="status-upload" style="margin-top:15px;">
                             <form action="upload.php" method="post" enctype="multipart/form-data">
                                 <textarea name="statustext" placeholder="What are you doing right now?"></textarea>
 
                                 <div id="additional"></div>
                                 <ul>
-                                    <li id="addPhotoBtn"><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i
+                                    <li id="addPhotosBtn"><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i
                                                 class="fa fa-picture-o"></i></a></li>
                                     <li id="addBragBtn"><a data-placement="bottom" data-toggle="tooltip" title="Brag"><i
                                                 class="fa fa-child"></i></a></li>
@@ -216,6 +219,7 @@ if (loggedIn()){
                                                               title="Playing"><i class="fa fa-gamepad"></i></a></li>
                                 </ul>
                                 <button class="green" type="submit">Post</button>
+                                
                             </form>
                         </div>
                         <!-- Status Upload  -->
