@@ -57,7 +57,7 @@ if (loggedIn()) {
 
         // get status
 
-        $status = $_POST["statustext"];
+        $status = addslashes($_POST["statustext"]);
         if ($status == ""){
             $status = "Uploaded photos.";
         }
@@ -103,22 +103,22 @@ if (loggedIn()) {
 
         if(isset($_POST["bragName"])){
 
-            $bN = $_POST["bragName"];
+            $bN = addslashes($_POST["bragName"]);
             $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo, Brag) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\",\"" . $bN . "\");";
 
         }
 
         if(isset($_POST["playName"])){
 
-            $pN = $_POST["playName"];
+            $pN = addslashed($_POST["playName"]);
             $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\",\"" . $pN . "\");";
 
         }
 
         if (isset($_POST["playName"]) && isset($_POST["bragName"])){
 
-            $bN = $_POST["bragName"];
-            $pN = $_POST["playName"];
+            $bN = addslashes($_POST["bragName"]);
+            $pN = addslashes($_POST["playName"]);
             $sqlInsert = "INSERT INTO status_upload (UserID, Text, Photo, Brag, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\" " . $photo_names_in_string . "\",\"" . $bN . "\",\"" . $pN. "\");";
         }
 
@@ -145,14 +145,16 @@ if (loggedIn()) {
 
     // fot status ONLY
 
-    if (text_present() && !image_present()){
+    if (text_present() && !image_present() || !text_present() && !image_present()){
 
         // get status
 
         $bN = null;
         $pN = null;
 
+
         $status = $_POST["statustext"];
+        $status = addslashes($status);
 
 
 
@@ -183,22 +185,22 @@ if (loggedIn()) {
 
         if(isset($_POST["bragName"])){
 
-            $bN = $_POST["bragName"];
+            $bN = addslashes($_POST["bragName"]);
             $sqlInsert = "INSERT INTO status_upload (UserID, Text, Brag) VALUES (\"". $ID . "\",". "\"" . $status . "\",\"" . $bN ."\");";
 
         }
 
         if(isset($_POST["playName"])){
 
-            $pN = $_POST["playName"];
+            $pN = addslashes($_POST["playName"]);
             $sqlInsert = "INSERT INTO status_upload (UserID, Text, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\"" . $pN ."\");";
 
         }
 
         if (isset($_POST["playName"]) && isset($_POST["bragName"])){
 
-            $bN = $_POST["bragName"];
-            $pN = $_POST["playName"];
+            $bN = addslashes($_POST["bragName"]);
+            $pN = addslashes($_POST["playName"]);
             $sqlInsert = "INSERT INTO status_upload (UserID, Text, Brag, NowPlaying) VALUES (\"". $ID . "\",". "\"" . $status . "\",\"" . $bN ."\",\"" . $pN . "\");";
         }
 
