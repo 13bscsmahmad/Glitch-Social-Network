@@ -24,6 +24,13 @@
         <link rel="stylesheet" href="css/responsive.css" type="text/css"/>
         <!-- Responsive -->
 
+
+        <script>
+        function submitCommentForm(statusID) {
+
+        document.getElementById("comment-form" + statusID).submit();
+        }
+        </script>
     </head>
     <body>
 
@@ -209,7 +216,7 @@
 
                                                             $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
 
-                                                            $sql = "SELECT text, brag, upload_datetime FROM status_upload join user where username=\"" . $_SESSION["username"] . "\" and brag is not null order by upload_DateTime desc;";
+                                                            $sql = "SELECT text, brag, upload_datetime, status_upload.ID as s_ID FROM status_upload join user where username=\"" . $_SESSION["username"] . "\" and brag is not null order by upload_DateTime desc;";
                                                             $result = mysqli_query($link, $sql);
                                                             //$photos = null;
 
@@ -219,10 +226,14 @@
 
                                                             if (mysqli_num_rows($result) > 0) {
                                                                 // output data of each row
-
-
-
                                                                 while ($row = $result->fetch_assoc()) {
+
+
+                                                                    $sql2 = "select commented_user, comment, Upload_DateTime, profile_pic from comments join user on commented_user = username where status_id=\"" . $row["s_ID"] . "\"";
+                                                                    $result2 = mysqli_query($link, $sql2);
+                                                                    if (!$result2) {
+                                                                        die(mysqli_error($link));
+                                                                    }
 
                                                                     echo "<li>
                                                                 <div class=\"timeline\">
@@ -245,18 +256,44 @@
                                                                                     <i class=\"fa fa-thumbs-o-up\"></i>
                                                                                     Thumbs Up! </label>
                                                                             </div>
-                                                                            <form class=\"post-reply\">
-                                                                                <textarea
-                                                                                    placeholder=\"Write your comment\"></textarea>
-
-                                                                                <center><a href=\"#\" title=\"\"
-                                                                                           class=\"c-btn mini blue\"
-                                                                                           style=\"margin:0 auto;\"><i
-                                                                                            class=\"fa fa-comments-o\"></i>
-                                                                                        Post Comment</a></center>
+                                                                            <form id=\"comment-form". $row["s_ID"]  ."\" class=\"post-reply\" action=\"uploadComment.php\" method=\"get\">
+                                                                              <textarea name=\"comment\" placeholder=\"Write your comment\"></textarea>
+                                                                              <input type=\"hidden\" name=\"statusid\" id=\"statusIDspan\" value=\"" . $row["s_ID"] . "\">
+                                                                               <center><a href=\"#\" onclick=\"submitCommentForm(". $row["s_ID"]  .")\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
                                                                             </form>
-                                                                        </div>
-                                                                    </div>
+                                                                        </div>";
+
+                                                                    if (mysqli_num_rows($result2) > 0) {
+
+                                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                                            // output data of each row
+
+                                                                            $profile_pic = $row2["profile_pic"];
+                                                                            $profile_pic = ltrim($profile_pic, ' ');
+
+//<!--                                        <div class="widget-area" style="margin-top:0px; padding:5px 30px 10px;"><p class="timeline-content" ><img src="user/profilePhoto/1.png" width="40" height="40" style="margin-left:-15px; margin-right:20px;">Some comment</p></div></div>-->
+
+//                                                            echo"<div class=\"widget-area\" style=\"margin-top:-7px\">
+//                                                                <div><div style=\"float:left;\" width=\"20%\"><img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=
+//
+//                                                                        \"margin-right:20px; margin-top:-5px; margin-bottom:5px;\"></div><div  width=\"80%\">". $row2["comment"] ."</div></div>
+//                                                            </div>";
+
+                                                                            echo "<div class=\"widget-area\" style=\"margin-top:-7px\">
+<div>
+<div style=\"float:left; display:table-cell\" width=\"20%\">
+<img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=\"margin-right:20px; margin-top:-5px; margin-bottom:5px;\">
+</div>
+<div style=\"display:table-cell\">". $row2["comment"] ."</div></div>
+</div>";
+
+
+
+
+                                                                        }
+                                                                    }
+
+                                                                    echo "</div>
                                                                 </div>
                                                             </li>";
 

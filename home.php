@@ -43,9 +43,9 @@ if (loggedIn()){
 
         /*}*/
 
-        input#statusIDspan {
-            visibility: hidden;
-        }
+        /*input#statusIDspan {*/
+            /*visibility: hidden;*/
+        /*}*/
     </style>
 
     <script>
@@ -68,10 +68,12 @@ if (loggedIn()){
 
         });
 
-        function submitCommentForm() {
+        function submitCommentForm(statusID) {
 
-            document.getElementById("comment-form").submit();
+            document.getElementById("comment-form" + statusID).submit();
         }
+
+
 
     </script>
 
@@ -263,45 +265,39 @@ if (loggedIn()){
                                         }
 
                                         if (mysqli_num_rows($result) > 0) {
-                                        // output data of each row
-                                        while ($row = $result->fetch_assoc()) {
+                                            // output data of each row
+                                            while ($row = $result->fetch_assoc()) {
 
-                                            // get comment for every status from db
+                                                // get comment for every status from db
 
-                                            $sql2 = "select commented_user, comment, Upload_DateTime, profile_pic from comments join user on commented_user = username where status_id=\"" . $row["s_ID"] . "\"";
-                                            $result2 = mysqli_query($link, $sql2);
-                                            if (!$result2) {
-                                                die(mysqli_error($link));
-                                            }
-                                            if (mysqli_num_rows($result2) > 0) {
-
-                                                while ($row2 = $result2->fetch_assoc()) {
-                                                    // output data of each row
+                                                $sql2 = "select commented_user, comment, Upload_DateTime, profile_pic from comments join user on commented_user = username where status_id=\"" . $row["s_ID"] . "\"";
+                                                $result2 = mysqli_query($link, $sql2);
+                                                if (!$result2) {
+                                                    die(mysqli_error($link));
                                                 }
-                                            }
 
 
-                                            // display profile pic
+                                                // display profile pic
 
-                                            $setSize = "style=\"width:100px;height:100px;\"";
+                                                $setSize = "style=\"width:100px;height:100px;\"";
 
-                                            $profilePictureName = $row["profile_pic"];
+                                                $profilePictureName = $row["profile_pic"];
 
-                                            if ($row["Photo"] === null) {
+                                                if ($row["Photo"] === null) {
 
-                                                echo "<li>
+                                                    echo "<li>
                                                     <div class=\"timeline\">
                                                         <div class=\"user-timeline\"> <span><img src=\"ProfilePics/" . $profilePictureName . "\" alt=\"\" /></span> </div>
                                                         <div class=\"timeline-detail\">
                                                             <div class=\"timeline-head\">";
-                                                if ($row["Brag"]) {
-                                                    echo "<h3><strong>" . $row["Username"] . "</strong> bragged \"" . $row["Brag"] . "\"<span> " . $row["Upload_DateTime"] . "</span></h3>";
-                                                } else if ($row["NowPlaying"]) {
-                                                    echo "<h3><strong>" . $row["Username"] . "</strong> is now playing <strong>" . $row["NowPlaying"] . "</strong><span>" . $row["Upload_DateTime"] . "</span></h3>";
-                                                } else {
-                                                    echo "<h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>";
-                                                }
-                                                echo "</div>
+                                                    if ($row["Brag"]) {
+                                                        echo "<h3><strong>" . $row["Username"] . "</strong> bragged \"" . $row["Brag"] . "\"<span> " . $row["Upload_DateTime"] . "</span></h3>";
+                                                    } else if ($row["NowPlaying"]) {
+                                                        echo "<h3><strong>" . $row["Username"] . "</strong> is now playing <strong>" . $row["NowPlaying"] . "</strong><span>" . $row["Upload_DateTime"] . "</span></h3>";
+                                                    } else {
+                                                        echo "<h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>";
+                                                    }
+                                                    echo "</div>
                                                             <div class=\"timeline-content\">
                                                                 <p>" . $row["Text"] . "</p>
                                                                 <div data-toggle=\"buttons\" class=\"btn-group btn-group-sm\">
@@ -309,17 +305,50 @@ if (loggedIn()){
                                                                         <input type=\"radio\"  name=\"options\" />
                                                                         <i class=\"fa fa-thumbs-o-up\"></i> Thumbs Up! </label>
                                                                 </div>
-                                                                <form id=\"comment-form\" class=\"post-reply\" action=\"uploadComment.php\" method=\"get\">
+                                                                <form id=\"comment-form". $row["s_ID"]  ."\" class=\"post-reply\" action=\"uploadComment.php\" method=\"get\">
                                                                     <textarea name=\"comment\" placeholder=\"Write your comment\"></textarea>
                                                                     <input type=\"hidden\" name=\"statusid\" id=\"statusIDspan\" value=\"" . $row["s_ID"] . "\">
 
-                                                                    <center><a href=\"#\" onclick=\"submitCommentForm()\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
+                                                                    <center><a href=\"#\" onclick=\"submitCommentForm(". $row["s_ID"]  .")\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
                                                         </form>
-                                                            </div>
-                                                        </div>
+                                                            </div>";
+
+                                                    if (mysqli_num_rows($result2) > 0) {
+
+                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                            // output data of each row
+
+                                                            $profile_pic = $row2["profile_pic"];
+                                                            $profile_pic = ltrim($profile_pic, ' ');
+
+//<!--                                        <div class="widget-area" style="margin-top:0px; padding:5px 30px 10px;"><p class="timeline-content" ><img src="user/profilePhoto/1.png" width="40" height="40" style="margin-left:-15px; margin-right:20px;">Some comment</p></div></div>-->
+
+//                                                            echo"<div class=\"widget-area\" style=\"margin-top:-7px\">
+//                                                                <div><div style=\"float:left;\" width=\"20%\"><img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=
+//
+//                                                                        \"margin-right:20px; margin-top:-5px; margin-bottom:5px;\"></div><div  width=\"80%\">". $row2["comment"] ."</div></div>
+//                                                            </div>";
+
+                                                            echo "<div class=\"widget-area\" style=\"margin-top:-7px\">
+<div>
+<div style=\"float:left; display:table-cell\" width=\"20%\">
+<img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=\"margin-right:20px; margin-top:-5px; margin-bottom:5px;\">
+</div>
+<div style=\"display:table-cell\">". $row2["comment"] ."</div></div>
+</div>";
+
+
+
+
+                                                        }
+                                                    }
+
+
+
+                                                    echo "</div>
                                                     </div>
                                                 </li>";
-                                            } /*echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
+                                                } /*echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
                                                         echo "<br\\>";
                                                         echo "<br\\>";
                                                         echo "<br\\>";
@@ -351,20 +380,20 @@ if (loggedIn()){
 
                                                         echo "<hr>";*/
 
-                                            else {
+                                                else {
 
-                                                echo " <li>
+                                                    echo " <li>
                                                     <div class=\"timeline\">
                                                         <div class=\"user-timeline\"> <span><img src=\"ProfilePics/" . $profilePictureName . "\" alt=\"\" /></span> </div>
                                                         <div class=\"timeline-detail\">
                                                             <div class=\"timeline-head\">";
 
-                                                if ($row["Brag"]) {
-                                                    echo "<h3><strong>" . $row["Username"] . "</strong> bragged \"" . $row["Brag"] . "\"<span> " . $row["Upload_DateTime"] . "</span></h3>";
-                                                } else if ($row["NowPlaying"]) {
-                                                    echo "<h3><strong>" . $row["Username"] . "</strong> is now playing <strong>" . $row["NowPlaying"] . "</strong><span>" . $row["Upload_DateTime"] . "</span></h3>";
-                                                } else {
-                                                    echo "
+                                                    if ($row["Brag"]) {
+                                                        echo "<h3><strong>" . $row["Username"] . "</strong> bragged \"" . $row["Brag"] . "\"<span> " . $row["Upload_DateTime"] . "</span></h3>";
+                                                    } else if ($row["NowPlaying"]) {
+                                                        echo "<h3><strong>" . $row["Username"] . "</strong> is now playing <strong>" . $row["NowPlaying"] . "</strong><span>" . $row["Upload_DateTime"] . "</span></h3>";
+                                                    } else {
+                                                        echo "
 
                                                                 <h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>
                                                             </div>
@@ -372,42 +401,79 @@ if (loggedIn()){
                                                                 <p>" . $row["Text"] . "</p>
                                                                 <div class=\"timeline-gallery\">
                                                                     <ul>";
-                                                    // echo photos.
+                                                        // echo photos.
 
-                                                    $token = $row["Photo"];
+                                                        $token = $row["Photo"];
 
-                                                    $token = ltrim($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
+                                                        $token = ltrim($token, ' '); // THIS IS A HACK!!! TO REMOVE WHITESPACE IN THE BEGINNING IN DB PHOTOS
 
-                                                    $token = strtok($token, ",");
+                                                        $token = strtok($token, ",");
 
-                                                    while ($token !== false) {
-                                                        //echo "\"". $token . "\"";
-                                                        //echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
+                                                        while ($token !== false) {
+                                                            //echo "\"". $token . "\"";
+                                                            //echo "<img src=\"Photos\\" . $token . "\"" . " style=\"width:75px;height:75px;\"" ."<\\>" . " ";
 
 
-                                                        echo "<li><a class=\"html5lightbox\" href=\"Photos/" . $token . "\"><i class=\"fa fa-arrows-alt\"></i><img src=\"Photos/" . $token . "\" width=\"70px\" height=\"70px\" style=\"width:auto;\" alt=\"\" /></a></li>";
-                                                        $token = strtok(",");
-                                                    }
+                                                            echo "<li><a class=\"html5lightbox\" href=\"Photos/" . $token . "\"><i class=\"fa fa-arrows-alt\"></i><img src=\"Photos/" . $token . "\" width=\"70px\" height=\"70px\" style=\"width:auto;\" alt=\"\" /></a></li>";
+                                                            $token = strtok(",");
+                                                        }
 
 
 //                                                                        <li><a class=\"html5lightbox\" href=\"posts/screenshots/1.jpg\"><i class=\"fa fa-arrows-alt\"></i><img src=\"posts/screenshots/1.jpg\" width=\"70px\" height=\"70px\" style=\"width:auto;\" alt=\"\" /></a></li>
 //                                                                        <li><a class=\"html5lightbox\" href=\"images/resource/view.gif\"><i class=\"fa fa-arrows-alt\"></i><img src=\"images/resource/gallery2.jpg\" alt=\"\" /></a></li>
 //                                                                        <li><a class=\"html5lightbox\" href=\"images/resource/view.gif\"><i class=\"fa fa-arrows-alt\"></i><img src=\"images/resource/gallery3.jpg\" alt=\"\" /></a></li>
 //                                                                        <li><a class=\"html5lightbox\" href=\"images/resource/view.gif\"><i class=\"fa fa-arrows-alt\"></i><img src=\"images/resource/gallery4.jpg\" alt=\"\" /></a></li>
-                                                    echo "</ul>
+                                                        echo "</ul>
                                                                 </div>
                                                                 <div data-toggle=\"buttons\" class=\"btn-group btn-group-sm\">
                                                                     <label class=\"btn btn-default\">
                                                                         <input type=\"radio\"  name=\"options\" />
                                                                         <i class=\"fa fa-thumbs-o-up\"></i> Thumbs Up! </label>
                                                                 </div>
-                                                                <form class=\"post-reply\">
-                                                                    <textarea placeholder=\"Write your comment\"></textarea>
+                                                                <form id=\"comment-form". $row["s_ID"]  ."\" class=\"post-reply\" action=\"uploadComment.php\" method=\"get\">
+                                                                    <textarea name=\"comment\" placeholder=\"Write your comment\"></textarea>
+                                                                    <input type=\"hidden\" name=\"statusid\" id=\"statusIDspan\" value=\"" . $row["s_ID"] . "\">
 
-                                                                    <center><a href=\"#\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
+                                                                    <center><a href=\"#\" onclick=\"submitCommentForm(". $row["s_ID"]  .")\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
                                                 </form>
-                                                            </div>
-                                                        </div>
+                                                            </div>";
+
+
+                                                        if (mysqli_num_rows($result2) > 0) {
+
+                                                            while ($row2 = $result2->fetch_assoc()) {
+                                                                // output data of each row
+
+                                                                $profile_pic = $row2["profile_pic"];
+                                                                $profile_pic = ltrim($profile_pic, ' ');
+
+//<!--                                        <div class="widget-area" style="margin-top:0px; padding:5px 30px 10px;"><p class="timeline-content" ><img src="user/profilePhoto/1.png" width="40" height="40" style="margin-left:-15px; margin-right:20px;">Some comment</p></div></div>-->
+
+//                                                                echo"<div class=\"widget-area\" style=\"margin-top:-7px\">
+//                                                                <div><div style=\"float:left;\" width=\"20%\"><img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=
+//
+//                                                                        \"margin-right:20px; margin-top:-5px; margin-bottom:5px;\"></div><div  width=\"80%\">". $row2["comment"] ."</div></div>
+//                                                            </div>";
+
+                                                                echo "<div class=\"widget-area\" style=\"margin-top:-7px\">
+<div>
+<div style=\"float:left; display:table-cell\" width=\"20%\">
+<img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=\"margin-right:20px; margin-top:-5px; margin-bottom:5px;\">
+</div>
+<div style=\"display:table-cell\">". $row2["comment"] ."</div></div>
+</div>";
+
+
+
+
+                                                            }
+                                                        }
+
+
+
+
+
+                                                        echo "</div>
                                                     </div>
                                                 </li>";}
 
@@ -619,4 +685,3 @@ if (loggedIn()){
 
 </body>
 </html>
-

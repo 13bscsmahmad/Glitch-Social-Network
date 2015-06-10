@@ -26,6 +26,13 @@ if (loggedIn()) { ?>
         <link rel="stylesheet" href="css/responsive.css" type="text/css"/>
         <!-- Responsive -->
 
+        <script>
+            function submitCommentForm(statusID) {
+
+                document.getElementById("comment-form" + statusID).submit();
+            }
+        </script>
+
     </head>
     <body>
 
@@ -239,7 +246,7 @@ if (loggedIn()) { ?>
 
                                                             <?php
 
-                                                            $sql2 = "SELECT text, photo, brag, nowplaying, upload_datetime FROM status_upload join user WHERE username=\"" . $_SESSION["username"] . "\"order by upload_datetime desc;";
+                                                            $sql2 = "SELECT text, photo, brag, nowplaying, upload_datetime, status_upload.ID as s_ID FROM status_upload join user on status_upload.userid = user.id WHERE username=\"" . $_SESSION["username"] . "\"order by upload_datetime desc;";
                                                             $result2 = mysqli_query($link, $sql2);
                                                             if (!$result2) {
                                                                 die(mysqli_error($link));
@@ -247,6 +254,13 @@ if (loggedIn()) { ?>
 
                                                             if (mysqli_num_rows($result2) > 0) {
                                                                 while ($row2 = $result2->fetch_assoc()) {
+
+                                                                    $sql3 = "select commented_user, comment, Upload_DateTime, profile_pic from comments join user on commented_user = username where status_ID=\"" . $row2["s_ID"] . "\"";
+                                                                    $result3 = mysqli_query($link, $sql3);
+                                                                    if (!$result3) {
+                                                                        die(mysqli_error($link));
+                                                                    }
+
                                                                     ?>
 
                                                                     <li>
@@ -282,18 +296,53 @@ if (loggedIn()) { ?>
                                                                                             <i class="fa fa-thumbs-o-up"></i>
                                                                                             Thumbs Up! </label>
                                                                                     </div>
-                                                                                    <form class="post-reply">
-                                                                                <textarea
-                                                                                    placeholder="Write your comment"></textarea>
 
-                                                                                        <center><a href="#" title=""
-                                                                                                   class="c-btn mini blue"
-                                                                                                   style="margin:0 auto;"><i
-                                                                                                    class="fa fa-comments-o"></i>
-                                                                                                Post Comment </a>
-                                                                                        </center>
+                                                                                    <?php echo "<form id=\"comment-form". $row2["s_ID"]  ."\" class=\"post-reply\" action=\"uploadComment.php\" method=\"get\">" ?>
+                                                                                <textarea
+                                                                                    placeholder="Write your comment" name="comment"></textarea>
+
+                                                                                    <?php echo "<input type=\"hidden\" name=\"statusid\" id=\"statusIDspan\" value=\"" . $row2["s_ID"] . "\">" ;?>
+                                                                                    <?php echo "<center><a href=\"#\" onclick=\"submitCommentForm(". $row2["s_ID"]  .")\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>"; ?>
+
+
                                                                                     </form>
                                                                                 </div>
+
+                                                                                <?php
+
+                                                                                if (mysqli_num_rows($result3) > 0) {
+
+                                                                                    while ($row3 = $result3->fetch_assoc()) {
+                                                                                        // output data of each row
+
+                                                                                        $profile_pic = $row3["profile_pic"];
+                                                                                        $profile_pic = ltrim($profile_pic, ' ');
+
+//<!--                                        <div class="widget-area" style="margin-top:0px; padding:5px 30px 10px;"><p class="timeline-content" ><img src="user/profilePhoto/1.png" width="40" height="40" style="margin-left:-15px; margin-right:20px;">Some comment</p></div></div>-->
+
+//                                                            echo"<div class=\"widget-area\" style=\"margin-top:-7px\">
+//                                                                <div><div style=\"float:left;\" width=\"20%\"><img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=
+//
+//                                                                        \"margin-right:20px; margin-top:-5px; margin-bottom:5px;\"></div><div  width=\"80%\">". $row2["comment"] ."</div></div>
+//                                                            </div>";
+
+                                                                                        echo "<div class=\"widget-area\" style=\"margin-top:-7px\">
+<div>
+<div style=\"float:left; display:table-cell\" width=\"20%\">
+<img src=\"ProfilePics/" . $profile_pic . "\" width=\"40\" height=\"40\" style=\"margin-right:20px; margin-top:-5px; margin-bottom:5px;\">
+</div>
+<div style=\"display:table-cell\">". $row3["comment"] ."</div></div>
+</div>";
+
+
+
+
+                                                                                    }
+                                                                                }
+
+
+                                                                                ?>
+
                                                                             </div>
                                                                         </div>
                                                                     </li>
@@ -309,99 +358,99 @@ if (loggedIn()) { ?>
 
 
                                                             ?>
-<!---->
-<!--                                                            <li>-->
-<!--                                                                <div class="timeline">-->
-<!--                                                                    <div-->
-<!--                                                                        class="user-timeline"><span><img-->
-<!--                                                                                src="user/profilePhoto/1.png"-->
-<!--                                                                                alt=""/></span></div>-->
-<!--                                                                    <div class="timeline-detail">-->
-<!--                                                                        <div class="timeline-head">-->
-<!--                                                                            <h3><strong>Hamza-->
-<!--                                                                                    Masud</strong>-->
-<!--                                                                                bragged-->
-<!--                                                                                about DOTA<span>4 min ago</span>-->
-<!--                                                                            </h3>-->
-<!--                                                                        </div>-->
-<!--                                                                        <div class="timeline-content">-->
-<!--                                                                            <p>scored 20 kills in-->
-<!--                                                                                DOTA!</p>-->
-<!---->
-<!--                                                                            <div data-toggle="buttons"-->
-<!--                                                                                 class="btn-group btn-group-sm">-->
-<!--                                                                                <label-->
-<!--                                                                                    class="btn btn-default">-->
-<!--                                                                                    <input type="radio"-->
-<!--                                                                                           name="options"/>-->
-<!--                                                                                    <i class="fa fa-thumbs-o-up"></i>-->
-<!--                                                                                    Thumbs Up! </label>-->
-<!--                                                                            </div>-->
-<!--                                                                            <form class="post-reply">-->
-<!--                                                                                <textarea-->
-<!--                                                                                    placeholder="Write your comment"></textarea>-->
-<!---->
-<!--                                                                                <center><a href="#"-->
-<!--                                                                                           title=""-->
-<!--                                                                                           class="c-btn mini blue"-->
-<!--                                                                                           style="margin:0 auto;"><i-->
-<!--                                                                                            class="fa fa-comments-o"></i>-->
-<!--                                                                                        Post Comment</a>-->
-<!--                                                                                </center>-->
-<!--                                                                            </form>-->
-<!--                                                                        </div>-->
-<!--                                                                    </div>-->
-<!--                                                                </div>-->
-<!--                                                            </li>-->
-<!---->
-<!--                                                            <li>-->
-<!--                                                                <div class="timeline">-->
-<!--                                                                    <div-->
-<!--                                                                        class="user-timeline"><span><img-->
-<!--                                                                                src="user/profilePhoto/1.png"-->
-<!--                                                                                alt=""/></span></div>-->
-<!--                                                                    <div class="timeline-detail">-->
-<!--                                                                        <div class="timeline-head">-->
-<!--                                                                            <h3><strong>Hamza-->
-<!--                                                                                    Masud</strong>-->
-<!--                                                                                unlocked an-->
-<!--                                                                                achievement in <strong>Batman-->
-<!--                                                                                    Arkham-->
-<!--                                                                                    Asylum</strong><span>4 min ago</span>-->
-<!--                                                                            </h3>-->
-<!--                                                                        </div>-->
-<!--                                                                        <div class="timeline-content">-->
-<!--                                                                            <p>-->
-<!--                                                                                <img-->
-<!--                                                                                    src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/35140/4d059fa60652ec59e4d82793a50a146142d86350.jpg"/>-->
-<!--                                                                                <strong>Perfect-->
-<!--                                                                                    Knight</strong></p>-->
-<!---->
-<!--                                                                            <div data-toggle="buttons"-->
-<!--                                                                                 class="btn-group btn-group-sm">-->
-<!--                                                                                <label-->
-<!--                                                                                    class="btn btn-default">-->
-<!--                                                                                    <input type="radio"-->
-<!--                                                                                           name="options"/>-->
-<!--                                                                                    <i class="fa fa-thumbs-o-up"></i>-->
-<!--                                                                                    Thumbs Up! </label>-->
-<!--                                                                            </div>-->
-<!--                                                                            <form class="post-reply">-->
-<!--                                                                                <textarea-->
-<!--                                                                                    placeholder="Write your comment"></textarea>-->
-<!---->
-<!--                                                                                <center><a href="#"-->
-<!--                                                                                           title=""-->
-<!--                                                                                           class="c-btn mini blue"-->
-<!--                                                                                           style="margin:0 auto;"><i-->
-<!--                                                                                            class="fa fa-comments-o"></i>-->
-<!--                                                                                        Post Comment</a>-->
-<!--                                                                                </center>-->
-<!--                                                                            </form>-->
-<!--                                                                        </div>-->
-<!--                                                                    </div>-->
-<!--                                                                </div>-->
-<!--                                                            </li>-->
+                                                            <!---->
+                                                            <!--                                                            <li>-->
+                                                            <!--                                                                <div class="timeline">-->
+                                                            <!--                                                                    <div-->
+                                                            <!--                                                                        class="user-timeline"><span><img-->
+                                                            <!--                                                                                src="user/profilePhoto/1.png"-->
+                                                            <!--                                                                                alt=""/></span></div>-->
+                                                            <!--                                                                    <div class="timeline-detail">-->
+                                                            <!--                                                                        <div class="timeline-head">-->
+                                                            <!--                                                                            <h3><strong>Hamza-->
+                                                            <!--                                                                                    Masud</strong>-->
+                                                            <!--                                                                                bragged-->
+                                                            <!--                                                                                about DOTA<span>4 min ago</span>-->
+                                                            <!--                                                                            </h3>-->
+                                                            <!--                                                                        </div>-->
+                                                            <!--                                                                        <div class="timeline-content">-->
+                                                            <!--                                                                            <p>scored 20 kills in-->
+                                                            <!--                                                                                DOTA!</p>-->
+                                                            <!---->
+                                                            <!--                                                                            <div data-toggle="buttons"-->
+                                                            <!--                                                                                 class="btn-group btn-group-sm">-->
+                                                            <!--                                                                                <label-->
+                                                            <!--                                                                                    class="btn btn-default">-->
+                                                            <!--                                                                                    <input type="radio"-->
+                                                            <!--                                                                                           name="options"/>-->
+                                                            <!--                                                                                    <i class="fa fa-thumbs-o-up"></i>-->
+                                                            <!--                                                                                    Thumbs Up! </label>-->
+                                                            <!--                                                                            </div>-->
+                                                            <!--                                                                            <form class="post-reply">-->
+                                                            <!--                                                                                <textarea-->
+                                                            <!--                                                                                    placeholder="Write your comment"></textarea>-->
+                                                            <!---->
+                                                            <!--                                                                                <center><a href="#"-->
+                                                            <!--                                                                                           title=""-->
+                                                            <!--                                                                                           class="c-btn mini blue"-->
+                                                            <!--                                                                                           style="margin:0 auto;"><i-->
+                                                            <!--                                                                                            class="fa fa-comments-o"></i>-->
+                                                            <!--                                                                                        Post Comment</a>-->
+                                                            <!--                                                                                </center>-->
+                                                            <!--                                                                            </form>-->
+                                                            <!--                                                                        </div>-->
+                                                            <!--                                                                    </div>-->
+                                                            <!--                                                                </div>-->
+                                                            <!--                                                            </li>-->
+                                                            <!---->
+                                                            <!--                                                            <li>-->
+                                                            <!--                                                                <div class="timeline">-->
+                                                            <!--                                                                    <div-->
+                                                            <!--                                                                        class="user-timeline"><span><img-->
+                                                            <!--                                                                                src="user/profilePhoto/1.png"-->
+                                                            <!--                                                                                alt=""/></span></div>-->
+                                                            <!--                                                                    <div class="timeline-detail">-->
+                                                            <!--                                                                        <div class="timeline-head">-->
+                                                            <!--                                                                            <h3><strong>Hamza-->
+                                                            <!--                                                                                    Masud</strong>-->
+                                                            <!--                                                                                unlocked an-->
+                                                            <!--                                                                                achievement in <strong>Batman-->
+                                                            <!--                                                                                    Arkham-->
+                                                            <!--                                                                                    Asylum</strong><span>4 min ago</span>-->
+                                                            <!--                                                                            </h3>-->
+                                                            <!--                                                                        </div>-->
+                                                            <!--                                                                        <div class="timeline-content">-->
+                                                            <!--                                                                            <p>-->
+                                                            <!--                                                                                <img-->
+                                                            <!--                                                                                    src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/35140/4d059fa60652ec59e4d82793a50a146142d86350.jpg"/>-->
+                                                            <!--                                                                                <strong>Perfect-->
+                                                            <!--                                                                                    Knight</strong></p>-->
+                                                            <!---->
+                                                            <!--                                                                            <div data-toggle="buttons"-->
+                                                            <!--                                                                                 class="btn-group btn-group-sm">-->
+                                                            <!--                                                                                <label-->
+                                                            <!--                                                                                    class="btn btn-default">-->
+                                                            <!--                                                                                    <input type="radio"-->
+                                                            <!--                                                                                           name="options"/>-->
+                                                            <!--                                                                                    <i class="fa fa-thumbs-o-up"></i>-->
+                                                            <!--                                                                                    Thumbs Up! </label>-->
+                                                            <!--                                                                            </div>-->
+                                                            <!--                                                                            <form class="post-reply">-->
+                                                            <!--                                                                                <textarea-->
+                                                            <!--                                                                                    placeholder="Write your comment"></textarea>-->
+                                                            <!---->
+                                                            <!--                                                                                <center><a href="#"-->
+                                                            <!--                                                                                           title=""-->
+                                                            <!--                                                                                           class="c-btn mini blue"-->
+                                                            <!--                                                                                           style="margin:0 auto;"><i-->
+                                                            <!--                                                                                            class="fa fa-comments-o"></i>-->
+                                                            <!--                                                                                        Post Comment</a>-->
+                                                            <!--                                                                                </center>-->
+                                                            <!--                                                                            </form>-->
+                                                            <!--                                                                        </div>-->
+                                                            <!--                                                                    </div>-->
+                                                            <!--                                                                </div>-->
+                                                            <!--                                                            </li>-->
 
 
                                                         </ul>
