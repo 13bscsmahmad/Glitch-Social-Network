@@ -39,13 +39,13 @@ if (loggedIn()){
 
     <style type="text/css">
         /*input[type="file"] {*/
-            /*display: none;*/
+        /*display: none;*/
 
         /*}*/
 
-        span#statusIDspan{
-             visibility: hidden;
-         }
+        input#statusIDspan {
+            visibility: hidden;
+        }
     </style>
 
     <script>
@@ -67,6 +67,11 @@ if (loggedIn()){
 
 
         });
+
+        function submitCommentForm() {
+
+            document.getElementById("comment-form").submit();
+        }
 
     </script>
 
@@ -217,7 +222,8 @@ if (loggedIn()){
                                 <div id="additional"></div>
 
                                 <ul>
-                                    <li id="addPhotosBtn"><a data-placement="bottom" data-toggle="tooltip" title="Add Photos"><i
+                                    <li id="addPhotosBtn"><a data-placement="bottom" data-toggle="tooltip"
+                                                             title="Add Photos"><i
                                                 class="fa fa-picture-o"></i></a></li>
                                     <li id="addBragBtn"><a data-placement="bottom" data-toggle="tooltip" title="Brag"><i
                                                 class="fa fa-child"></i></a></li>
@@ -257,24 +263,45 @@ if (loggedIn()){
                                         }
 
                                         if (mysqli_num_rows($result) > 0) {
-                                            // output data of each row
-                                            while ($row = $result->fetch_assoc()) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
 
-                                                // display profile pic
+                                            // get comment for every status from db
 
-                                                $setSize = "style=\"width:100px;height:100px;\"";
+                                            $sql2 = "select commented_user, comment, Upload_DateTime, profile_pic from comments join user on commented_user = username where status_id=\"" . $row["s_ID"] . "\"";
+                                            $result2 = mysqli_query($link, $sql2);
+                                            if (!$result2) {
+                                                die(mysqli_error($link));
+                                            }
+                                            if (mysqli_num_rows($result2) > 0) {
 
-                                                $profilePictureName = $row["profile_pic"];
+                                                while ($row2 = $result2->fetch_assoc()) {
+                                                    // output data of each row
+                                                }
+                                            }
 
-                                                if ($row["Photo"] === null) {
 
-                                                    echo "<li>
+                                            // display profile pic
+
+                                            $setSize = "style=\"width:100px;height:100px;\"";
+
+                                            $profilePictureName = $row["profile_pic"];
+
+                                            if ($row["Photo"] === null) {
+
+                                                echo "<li>
                                                     <div class=\"timeline\">
                                                         <div class=\"user-timeline\"> <span><img src=\"ProfilePics/" . $profilePictureName . "\" alt=\"\" /></span> </div>
                                                         <div class=\"timeline-detail\">
-                                                            <div class=\"timeline-head\">
-                                                                <h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>
-                                                            </div>
+                                                            <div class=\"timeline-head\">";
+                                                if ($row["Brag"]) {
+                                                    echo "<h3><strong>" . $row["Username"] . "</strong> bragged \"" . $row["Brag"] . "\"<span> " . $row["Upload_DateTime"] . "</span></h3>";
+                                                } else if ($row["NowPlaying"]) {
+                                                    echo "<h3><strong>" . $row["Username"] . "</strong> is now playing <strong>" . $row["NowPlaying"] . "</strong><span>" . $row["Upload_DateTime"] . "</span></h3>";
+                                                } else {
+                                                    echo "<h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>";
+                                                }
+                                                echo "</div>
                                                             <div class=\"timeline-content\">
                                                                 <p>" . $row["Text"] . "</p>
                                                                 <div data-toggle=\"buttons\" class=\"btn-group btn-group-sm\">
@@ -282,17 +309,17 @@ if (loggedIn()){
                                                                         <input type=\"radio\"  name=\"options\" />
                                                                         <i class=\"fa fa-thumbs-o-up\"></i> Thumbs Up! </label>
                                                                 </div>
-                                                                <form class=\"post-reply\" action=\"uploadComment.php\" method=\"post\">
+                                                                <form id=\"comment-form\" class=\"post-reply\" action=\"uploadComment.php\" method=\"get\">
                                                                     <textarea name=\"comment\" placeholder=\"Write your comment\"></textarea>
-                                                                    <span id=\"statusIDspan\" name=\"statusid\">". $row["s_ID"] ."</span>
+                                                                    <input type=\"hidden\" name=\"statusid\" id=\"statusIDspan\" value=\"" . $row["s_ID"] . "\">
 
-                                                                    <center><a href=\"#\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
+                                                                    <center><a href=\"#\" onclick=\"submitCommentForm()\" title=\"\" class=\"c-btn mini blue\" style=\"margin:0 auto;\"><i class=\"fa fa-comments-o\"></i> Post Comment</a></center>
                                                         </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </li>";
-                                                } /*echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
+                                            } /*echo "<img src=\"ProfilePics\\" . $profilePictureName . "\"" . $setSize . "\\>";
                                                         echo "<br\\>";
                                                         echo "<br\\>";
                                                         echo "<br\\>";
@@ -324,13 +351,21 @@ if (loggedIn()){
 
                                                         echo "<hr>";*/
 
-                                                else {
+                                            else {
 
-                                                    echo " <li>
+                                                echo " <li>
                                                     <div class=\"timeline\">
                                                         <div class=\"user-timeline\"> <span><img src=\"ProfilePics/" . $profilePictureName . "\" alt=\"\" /></span> </div>
                                                         <div class=\"timeline-detail\">
-                                                            <div class=\"timeline-head\">
+                                                            <div class=\"timeline-head\">";
+
+                                                if ($row["Brag"]) {
+                                                    echo "<h3><strong>" . $row["Username"] . "</strong> bragged \"" . $row["Brag"] . "\"<span> " . $row["Upload_DateTime"] . "</span></h3>";
+                                                } else if ($row["NowPlaying"]) {
+                                                    echo "<h3><strong>" . $row["Username"] . "</strong> is now playing <strong>" . $row["NowPlaying"] . "</strong><span>" . $row["Upload_DateTime"] . "</span></h3>";
+                                                } else {
+                                                    echo "
+
                                                                 <h3>" . $row["Username"] . "<span>" . $row["Upload_DateTime"] . "</span></h3>
                                                             </div>
                                                             <div class=\"timeline-content\">
@@ -374,7 +409,7 @@ if (loggedIn()){
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li>";
+                                                </li>";}
 
                                                 }
 
@@ -382,7 +417,8 @@ if (loggedIn()){
                                             }
 
 
-                                        } else {
+                                        }
+                                        else {
                                             echo "0 results";
                                         }
 
@@ -391,69 +427,69 @@ if (loggedIn()){
                                         ?>
 
 
-<!--                                        <li>-->
-<!--                                            <div class="timeline">-->
-<!--                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"-->
-<!--                                                                                      alt=""/></span></div>-->
-<!--                                                <div class="timeline-detail">-->
-<!--                                                    <div class="timeline-head">-->
-<!--                                                        <h3><strong>Hamza Masud</strong> bragged about DOTA<span>4 min ago</span>-->
-<!--                                                        </h3>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="timeline-content">-->
-<!--                                                        <p>scored 20 kills in DOTA!</p>-->
-<!---->
-<!--                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">-->
-<!--                                                            <label class="btn btn-default">-->
-<!--                                                                <input type="radio" name="options"/>-->
-<!--                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
-<!--                                                        </div>-->
-<!--                                                        <form class="post-reply">-->
-<!--                                                            <textarea placeholder="Write your comment"></textarea>-->
-<!---->
-<!--                                                            <center><a href="#" title="" class="c-btn mini blue"-->
-<!--                                                                       style="margin:0 auto;"><i-->
-<!--                                                                        class="fa fa-comments-o"></i> Post Comment</a>-->
-<!--                                                            </center>-->
-<!--                                                        </form>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </li>-->
-<!---->
-<!--                                        <li>-->
-<!--                                            <div class="timeline">-->
-<!--                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"-->
-<!--                                                                                      alt=""/></span></div>-->
-<!--                                                <div class="timeline-detail">-->
-<!--                                                    <div class="timeline-head">-->
-<!--                                                        <h3><strong>Hamza Masud</strong> unlocked an achievement in-->
-<!--                                                            <strong>Batman Arkham Asylum</strong><span>4 min ago</span>-->
-<!--                                                        </h3>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="timeline-content">-->
-<!--                                                        <p>-->
-<!--                                                            <img-->
-<!--                                                                src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/35140/4d059fa60652ec59e4d82793a50a146142d86350.jpg"/>-->
-<!--                                                            <strong>Perfect Knight</strong></p>-->
-<!---->
-<!--                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">-->
-<!--                                                            <label class="btn btn-default">-->
-<!--                                                                <input type="radio" name="options"/>-->
-<!--                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
-<!--                                                        </div>-->
-<!--                                                        <form class="post-reply">-->
-<!--                                                            <textarea placeholder="Write your comment"></textarea>-->
-<!---->
-<!--                                                            <center><a href="#" title="" class="c-btn mini blue"-->
-<!--                                                                       style="margin:0 auto;"><i-->
-<!--                                                                        class="fa fa-comments-o"></i> Post Comment</a>-->
-<!--                                                            </center>-->
-<!--                                                        </form>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </li>-->
+                                        <!--                                        <li>-->
+                                        <!--                                            <div class="timeline">-->
+                                        <!--                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"-->
+                                        <!--                                                                                      alt=""/></span></div>-->
+                                        <!--                                                <div class="timeline-detail">-->
+                                        <!--                                                    <div class="timeline-head">-->
+                                        <!--                                                        <h3><strong>Hamza Masud</strong> bragged about DOTA<span>4 min ago</span>-->
+                                        <!--                                                        </h3>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                    <div class="timeline-content">-->
+                                        <!--                                                        <p>scored 20 kills in DOTA!</p>-->
+                                        <!---->
+                                        <!--                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">-->
+                                        <!--                                                            <label class="btn btn-default">-->
+                                        <!--                                                                <input type="radio" name="options"/>-->
+                                        <!--                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
+                                        <!--                                                        </div>-->
+                                        <!--                                                        <form class="post-reply">-->
+                                        <!--                                                            <textarea placeholder="Write your comment"></textarea>-->
+                                        <!---->
+                                        <!--                                                            <center><a href="#" title="" class="c-btn mini blue"-->
+                                        <!--                                                                       style="margin:0 auto;"><i-->
+                                        <!--                                                                        class="fa fa-comments-o"></i> Post Comment</a>-->
+                                        <!--                                                            </center>-->
+                                        <!--                                                        </form>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </li>-->
+                                        <!---->
+                                        <!--                                        <li>-->
+                                        <!--                                            <div class="timeline">-->
+                                        <!--                                                <div class="user-timeline"><span><img src="user/profilePhoto/1.png"-->
+                                        <!--                                                                                      alt=""/></span></div>-->
+                                        <!--                                                <div class="timeline-detail">-->
+                                        <!--                                                    <div class="timeline-head">-->
+                                        <!--                                                        <h3><strong>Hamza Masud</strong> unlocked an achievement in-->
+                                        <!--                                                            <strong>Batman Arkham Asylum</strong><span>4 min ago</span>-->
+                                        <!--                                                        </h3>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                    <div class="timeline-content">-->
+                                        <!--                                                        <p>-->
+                                        <!--                                                            <img-->
+                                        <!--                                                                src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/35140/4d059fa60652ec59e4d82793a50a146142d86350.jpg"/>-->
+                                        <!--                                                            <strong>Perfect Knight</strong></p>-->
+                                        <!---->
+                                        <!--                                                        <div data-toggle="buttons" class="btn-group btn-group-sm">-->
+                                        <!--                                                            <label class="btn btn-default">-->
+                                        <!--                                                                <input type="radio" name="options"/>-->
+                                        <!--                                                                <i class="fa fa-thumbs-o-up"></i> Thumbs Up! </label>-->
+                                        <!--                                                        </div>-->
+                                        <!--                                                        <form class="post-reply">-->
+                                        <!--                                                            <textarea placeholder="Write your comment"></textarea>-->
+                                        <!---->
+                                        <!--                                                            <center><a href="#" title="" class="c-btn mini blue"-->
+                                        <!--                                                                       style="margin:0 auto;"><i-->
+                                        <!--                                                                        class="fa fa-comments-o"></i> Post Comment</a>-->
+                                        <!--                                                            </center>-->
+                                        <!--                                                        </form>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </li>-->
 
 
                                     </ul>
