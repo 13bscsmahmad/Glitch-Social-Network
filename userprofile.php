@@ -132,7 +132,7 @@ if (loggedIn()) { ?>
                 <div class="profile-stats">
                     <div class="mini-profile"><span><img src="ProfilePics/<?php echo $pic ?>" alt=""/></span>
 
-                        <h3 id="sidebarName"><?php $_SESSION["username"] ?></h3>
+                        <h3 id="sidebarName"><?php echo $_SESSION["username"] ?></h3>
                         <a href="logout.php" title="Logout" class="logout red" data-toggle="tooltip" data-placement=
                         "right"><i class="fa fa-power-off"></i></a></div>
                 </div>
