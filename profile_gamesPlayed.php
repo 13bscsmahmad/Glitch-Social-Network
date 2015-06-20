@@ -182,7 +182,7 @@ if (loggedIn()) { ?>
 
                                         $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
 
-                                        $sql = "SELECT distinct NowPlaying FROM status_upload join user where username = \"" . $_SESSION["username"] . "\" and NowPlaying is not null;";
+                                        $sql = "SELECT distinct NowPlaying FROM status_upload join user on status_upload.userID = user.ID where username = \"" . $_SESSION["username"] . "\" and NowPlaying is not null;";
                                         $result = mysqli_query($link, $sql);
                                         //$photos = null;
 
