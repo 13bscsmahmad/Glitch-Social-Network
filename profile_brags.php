@@ -1,4 +1,4 @@
-<?php include 'filter.php'; ?>
+    <?php include 'filter.php'; ?>
 <?php include 'functions.php'; ?>
 
 <?php if (loggedIn()) { ?>
@@ -216,7 +216,7 @@
 
                                                             $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
 
-                                                            $sql = "SELECT text, brag, upload_datetime, status_upload.ID as s_ID FROM status_upload join user where username=\"" . $_SESSION["username"] . "\" and brag is not null order by upload_DateTime desc;";
+                                                            $sql = "SELECT text, brag, upload_datetime, status_upload.ID as s_ID FROM status_upload join user on status_upload.userID = user.ID where username=\"" . $_SESSION["username"] . "\" and brag is not null order by upload_DateTime desc;";
                                                             $result = mysqli_query($link, $sql);
                                                             //$photos = null;
 
