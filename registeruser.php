@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 0) {
 
                 // if all criteria met and file uploaded to server
 
-                $sqlInsert = "Insert into user (Username, Password, profile_pic) VALUES (\"" . $_POST["newusername"] . "\",\"" . $_POST["newpassword"] . "\",\"" . $_FILES["profilepic"]["name"] . "\");";
+                $sqlInsert = "Insert into user (Username, Password, profile_pic, Email) VALUES (\"" . $_POST["newusername"] . "\",\"" . $_POST["newpassword"] . "\",\"" . $_FILES["profilepic"]["name"] . "\",\"". $_POST["email"] ."\");";
                 //mysqli_query($link, $sqlInsert);
 
                 if ($link->query($sqlInsert) === TRUE){
@@ -86,7 +86,7 @@ if (mysqli_num_rows($result) > 0) {
 
         //handle for case if no file uploaded;
 
-        $sqlInsert = "Insert into user (Username, Password) VALUES (\"" . $_POST["newusername"] . "\",\"" . $_POST["newpassword"] . "\");";
+        $sqlInsert = "Insert into user (Username, Password, Email) VALUES (\"" . $_POST["newusername"] . "\",\"" . $_POST["newpassword"] . "\",\"". $_POST["email"] . "\");";
         //mysqli_query($link, $sqlInsert);
 
         if ($link->query($sqlInsert) === TRUE){
