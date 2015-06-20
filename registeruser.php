@@ -25,7 +25,7 @@ if (mysqli_num_rows($result) > 0) {
 
 } else {
 
-    if(isset($_FILES['profilepic']) ) {
+    if(isset($_FILES['profilepic']) && !empty($_FILES["profilepic"]) && ($_FILES["profilepic"]["size"] > 0) ) {
 
         $target_dir = "ProfilePics/";
         $target_file = $target_dir . basename($_FILES["profilepic"]["name"]);
@@ -34,7 +34,7 @@ if (mysqli_num_rows($result) > 0) {
         // check if file already exists
         if (file_exists($target_file)) {
             $date = new DateTime();
-            $target_file = $target_file . $$date->getTimestamp();
+            $target_file = $target_file . $date->getTimestamp();
         }
 
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
@@ -83,7 +83,6 @@ if (mysqli_num_rows($result) > 0) {
 
 
     } else {
-
 
         //handle for case if no file uploaded;
 
