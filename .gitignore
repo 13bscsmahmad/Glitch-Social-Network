@@ -1,2 +1,4 @@
 # ignore all files in the .idea/, Photos/, and ProfilePics/ directories
 .idea/
+ProfilePics/
+Photos/
