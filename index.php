@@ -154,6 +154,7 @@ if (loggedIn()){
             $(this).addClass('active');
             e.preventDefault();
         });
+
         $('#register-form-link').click(function(e) {
             $("#register-form").delay(100).fadeIn(100);
             $("#login-form").fadeOut(100);
@@ -162,7 +163,26 @@ if (loggedIn()){
             e.preventDefault();
         });
 
+        
+
     });
+
+    function validateForm(){
+
+        var x = document.forms["register-form"]["newpassword"].value;
+        var y = document.forms["register-form"]["confirm-password"].value;
+
+        var confirmation = x.localeCompare(y);
+
+        if (confirmation == 0){
+            return true;
+        } else {
+            alert("Passwords do not match");
+            $("#confirm-password").focus();
+            return false;
+        }
+
+    }
 </script>
 
 </head>
@@ -238,18 +258,18 @@ if (loggedIn()){
                                     </div>
                                 </div>
                             </form>
-                            <form id="register-form" action="registeruser.php" method="post" role="form" style="display: none;" enctype="multipart/form-data">
+                            <form id="register-form" name="register-form" action="registeruser.php" method="post" role="form" style="display: none;" enctype="multipart/form-data" onsubmit="return validateForm();">
                                 <div class="form-group">
-                                    <input type="text" name="newusername" id="newusername" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input type="text" name="newusername" id="newusername" tabindex="1" class="form-control" placeholder="Username" value="" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="newpassword" id="newpassword" tabindex="2" class="form-control" placeholder="Password">
+                                    <input type="password" name="newpassword" id="newpassword" tabindex="2" class="form-control" placeholder="Password" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Upload profile picture</label>
