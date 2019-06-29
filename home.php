@@ -248,9 +248,9 @@ if (loggedIn()){
 
                                         <?php
 
-                                        $servername = "localhost";
+                                        $servername = "mydb";
                                         $username = "root";
-                                        $password = "moaaz@dell";
+                                        $password = "mysqlPwd75";
                                         $dbname = "project";
                                         // Create connection
 
@@ -600,9 +600,9 @@ if (loggedIn()){
 <!---->
 <!--    --><?php
 //
-//    $servername = "localhost";
+//    $servername = "mydb";
 //    $username = "root";
-//    $password = "moaaz@dell";
+//    $password = "mysqlPwd75";
 //    $dbname = "project";
 //    // Create connection
 //
@@ -670,14 +670,7 @@ if (loggedIn()){
 //
 ?>
 <!---->
-<!--    <br/>-->
-<!--	<h1><a href="logout.php">Log Out</a></h1>-->
-<!---->
-<!--    <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
--->
-<!---->
-<!--    </body>-->
-<!--    </html>-->
+
 
 <?php } else {
     header("location:index.html");

@@ -1,8 +1,7 @@
-<!--<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>-->
+<?php
+ob_start();
+session_start();
+?>
 <?php include 'filter.php';?>
 
 <?php

@@ -19,3 +19,16 @@ Features to implement:
 - Search
 - Friends
 - ... and much much more
+
+# Development
+
+* Clone the repo
+* 
+* `docker-compose up -d`
+* 
+
+## Optional Commands
+* `docker system prune --volumes` (remove `--volumes` to keep persistent volume data (MySQL))
+* To enter MySQL container's bash shell: `docker exec -it mysql-container bash`
+* To enter PHP container's bash shell: `docker exec -it php-container bash`
+* Log into MySQL interpreter from within the MySQL container: `mysql -uroot -p -h localhost`
