@@ -26,7 +26,9 @@ Features to implement:
 
 ## Development
 
-* Clone the repo
+* Clone the repo: `git clone https://github.com/mmahmad/Glitch-Social-Network.git`
+* `cd Glitch-Social-Network`
+* `source init.sh`
 * `docker-compose build`
 * `docker-compose up -d` (starts containers `mysql-container` and `php-container` in detached mode)
 
