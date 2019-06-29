@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+ -- phpMyAdmin SQL Dump
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+
+-- Set `project` db
+use project;
 
 --
 -- Table structure for table `comments`
