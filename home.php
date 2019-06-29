@@ -250,7 +250,7 @@ if (loggedIn()){
 
                                         $servername = "localhost";
                                         $username = "root";
-                                        $password = "moaaz@dell";
+                                        $password = "mysqlPwd75";
                                         $dbname = "project";
                                         // Create connection
 
@@ -602,7 +602,7 @@ if (loggedIn()){
 //
 //    $servername = "localhost";
 //    $username = "root";
-//    $password = "moaaz@dell";
+//    $password = "mysqlPwd75";
 //    $dbname = "project";
 //    // Create connection
 //

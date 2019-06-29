@@ -6,7 +6,7 @@ if ($_POST["newusername"] == "" && $_POST["newpassword"]== ""){
 
 $servername = "localhost";
 $username = "root";
-$password = "moaaz@dell";
+$password = "mysqlPwd75";
 $dbname = "project";
 
 $link = mysqli_connect($servername, $username, $password, $dbname) or die('Could not connect: ' . mysqli_connect_error());
