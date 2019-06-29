@@ -64,7 +64,7 @@ if (loggedIn()) {
 
         // open connection to database
 
-        $servername = "localhost";
+        $servername = "mydb";
         $username = "root";
         $password = "mysqlPwd75";
         $dbname = "project";
@@ -163,7 +163,7 @@ if (loggedIn()) {
 
         // open connection to database
 
-        $servername = "localhost";
+        $servername = "mydb";
         $username = "root";
         $password = "mysqlPwd75";
         $dbname = "project";

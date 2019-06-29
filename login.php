@@ -1,15 +1,17 @@
+<?php include 'filter.php';?>
+
 <!doctype html>
 <html>
 
 <body>
 
-<?php include 'filter.php';?>
+
 
 <?php
 
 if (!loggedIn()){
 
-$servername = "localhost";
+$servername = "mydb";
 $username = "root";
 $password = "mysqlPwd75";
 $dbname = "project";

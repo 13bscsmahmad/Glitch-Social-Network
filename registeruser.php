@@ -4,7 +4,7 @@ if ($_POST["newusername"] == "" && $_POST["newpassword"]== ""){
 	header("location:index.html");
 }
 
-$servername = "localhost";
+$servername = "mydb";
 $username = "root";
 $password = "mysqlPwd75";
 $dbname = "project";

@@ -1,5 +1,5 @@
-<?PHP
-
+<?php
+ob_start();
 function loggedIn() {
 
 	session_start();

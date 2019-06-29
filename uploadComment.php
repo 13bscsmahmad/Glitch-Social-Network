@@ -12,7 +12,7 @@ if (loggedIn()){
 
     $status_id = $_REQUEST["statusid"]; // get statusid
 
-    $servername = "localhost";
+    $servername = "mydb";
     $username = "root";
     $password = "mysqlPwd75";
     $dbname = "project";
