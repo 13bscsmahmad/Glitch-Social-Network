@@ -23,12 +23,11 @@ Features to implement:
 # Development
 
 * Clone the repo
-* 
-* `docker-compose up -d`
-* 
+* `docker-compose build`
+* `docker-compose up -d` (starts containers `mysql-container` and `php-container` in detached mode)
 
 ## Optional Commands
-* `docker system prune --volumes` (remove `--volumes` to keep persistent volume data (MySQL))
+* `docker system prune --volumes` (skip `--volumes` to keep persistent volume data (MySQL))
 * To enter MySQL container's bash shell: `docker exec -it mysql-container bash`
 * To enter PHP container's bash shell: `docker exec -it php-container bash`
 * Log into MySQL interpreter from within the MySQL container: `mysql -uroot -p -h localhost`
